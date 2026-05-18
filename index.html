@@ -17,7 +17,7 @@ font-family:Arial,sans-serif;
 
 body{
 background:#f5f5f5;
-padding-bottom:100px;
+padding-bottom:120px;
 }
 
 /* HEADER */
@@ -120,6 +120,26 @@ font-weight:bold;
 color:#ff6b00;
 }
 
+/* STOCK */
+
+.stock-status{
+margin-top:10px;
+padding:8px;
+border-radius:10px;
+font-size:16px;
+font-weight:bold;
+}
+
+.in-stock{
+background:#d4edda;
+color:green;
+}
+
+.out-stock{
+background:#ffd6d6;
+color:red;
+}
+
 /* INPUTS */
 
 .qty-input,
@@ -131,6 +151,15 @@ border-radius:10px;
 border:1px solid #ccc;
 font-size:16px;
 outline:none;
+}
+
+/* TOTAL */
+
+.total{
+margin-top:12px;
+font-size:22px;
+font-weight:bold;
+color:green;
 }
 
 /* BUTTON */
@@ -148,8 +177,19 @@ border-radius:12px;
 cursor:pointer;
 }
 
-button:hover{
-opacity:0.9;
+/* CART */
+
+.cart-section{
+background:white;
+margin:20px;
+padding:20px;
+border-radius:20px;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+.cart-item{
+padding:10px 0;
+border-bottom:1px solid #ddd;
 }
 
 /* BOTTOM NAV */
@@ -243,22 +283,41 @@ Fresh Fish Items
 ₹220 / KG
 </div>
 
+<div class="stock-status in-stock" id="stock1">
+In Stock
+</div>
+
+<select
+id="unit1"
+class="qty-input"
+onchange="calculatePrice(220,'qty1','unit1','total1')">
+
+<option value="GM">GM</option>
+<option value="KG">KG</option>
+
+</select>
+
 <input
-type="text"
+type="number"
 id="qty1"
 class="qty-input"
-placeholder="Enter Quantity (500GM or 2KG)"
+placeholder="Enter Quantity"
+onkeyup="calculatePrice(220,'qty1','unit1','total1')"
 >
 
-<input
-type="text"
-id="location1"
-class="location-input"
-placeholder="Enter Delivery Location"
->
+<div id="total1" class="total">
+Total : ₹0
+</div>
 
-<button onclick="orderNow('Ayala Fish','₹220 / KG','qty1','location1')">
-Order Now
+<button
+onclick="addToCart(
+'Ayala Fish',
+220,
+'qty1',
+'unit1',
+'stock1'
+)">
+Add To Cart
 </button>
 
 </div>
@@ -275,22 +334,41 @@ Order Now
 ₹180 / KG
 </div>
 
+<div class="stock-status in-stock" id="stock2">
+In Stock
+</div>
+
+<select
+id="unit2"
+class="qty-input"
+onchange="calculatePrice(180,'qty2','unit2','total2')">
+
+<option value="GM">GM</option>
+<option value="KG">KG</option>
+
+</select>
+
 <input
-type="text"
+type="number"
 id="qty2"
 class="qty-input"
-placeholder="Enter Quantity (500GM or 2KG)"
+placeholder="Enter Quantity"
+onkeyup="calculatePrice(180,'qty2','unit2','total2')"
 >
 
-<input
-type="text"
-id="location2"
-class="location-input"
-placeholder="Enter Delivery Location"
->
+<div id="total2" class="total">
+Total : ₹0
+</div>
 
-<button onclick="orderNow('Mathi Fish','₹180 / KG','qty2','location2')">
-Order Now
+<button
+onclick="addToCart(
+'Mathi Fish',
+180,
+'qty2',
+'unit2',
+'stock2'
+)">
+Add To Cart
 </button>
 
 </div>
@@ -307,22 +385,41 @@ Order Now
 ₹450 / KG
 </div>
 
+<div class="stock-status in-stock" id="stock3">
+In Stock
+</div>
+
+<select
+id="unit3"
+class="qty-input"
+onchange="calculatePrice(450,'qty3','unit3','total3')">
+
+<option value="GM">GM</option>
+<option value="KG">KG</option>
+
+</select>
+
 <input
-type="text"
+type="number"
 id="qty3"
 class="qty-input"
-placeholder="Enter Quantity (500GM or 2KG)"
+placeholder="Enter Quantity"
+onkeyup="calculatePrice(450,'qty3','unit3','total3')"
 >
 
-<input
-type="text"
-id="location3"
-class="location-input"
-placeholder="Enter Delivery Location"
->
+<div id="total3" class="total">
+Total : ₹0
+</div>
 
-<button onclick="orderNow('Prawns','₹450 / KG','qty3','location3')">
-Order Now
+<button
+onclick="addToCart(
+'Prawns',
+450,
+'qty3',
+'unit3',
+'stock3'
+)">
+Add To Cart
 </button>
 
 </div>
@@ -339,25 +436,107 @@ Order Now
 ₹900 / KG
 </div>
 
+<div class="stock-status out-stock" id="stock4">
+Stock Out
+</div>
+
+<select
+id="unit4"
+class="qty-input"
+onchange="calculatePrice(900,'qty4','unit4','total4')">
+
+<option value="GM">GM</option>
+<option value="KG">KG</option>
+
+</select>
+
 <input
-type="text"
+type="number"
 id="qty4"
 class="qty-input"
-placeholder="Enter Quantity (500GM or 2KG)"
+placeholder="Enter Quantity"
+onkeyup="calculatePrice(900,'qty4','unit4','total4')"
 >
 
-<input
-type="text"
-id="location4"
-class="location-input"
-placeholder="Enter Delivery Location"
->
+<div id="total4" class="total">
+Total : ₹0
+</div>
 
-<button onclick="orderNow('King Fish','₹900 / KG','qty4','location4')">
-Order Now
+<button
+onclick="addToCart(
+'King Fish',
+900,
+'qty4',
+'unit4',
+'stock4'
+)">
+Add To Cart
 </button>
 
 </div>
+
+</div>
+
+<!-- CART -->
+
+<div class="cart-section">
+
+<h2>
+🛒 Cart Items
+</h2>
+
+<div id="cartItems">
+
+No items added
+
+</div>
+
+<h2 style="margin-top:20px;">
+Grand Total : ₹<span id="grandTotal">0</span>
+</h2>
+
+<input
+type="text"
+id="customerLocation"
+class="location-input"
+placeholder="Enter Delivery Location"
+list="locationList"
+>
+
+<datalist id="locationList">
+
+<option value="Kunnicode">
+<option value="Vilakkupara">
+<option value="Thadikkadu">
+<option value="Nedumoncavu">
+<option value="Elamannoor">
+<option value="Kadakkal">
+<option value="Chadayamangalam">
+<option value="Nilamel">
+<option value="Ayoor">
+<option value="Anchal">
+
+<option value="Pathanapuram">
+<option value="Pattazhy">
+<option value="Piravanthur">
+<option value="Manchalloor">
+<option value="Pidavoor">
+<option value="Vilakkudy">
+<option value="Thalavoor">
+<option value="Podiyattuvila">
+<option value="Karavaloor">
+<option value="Punnala">
+<option value="Mancode">
+<option value="Malayankavu">
+<option value="Pathanapuri">
+<option value="Kariyara">
+<option value="Edamon">
+
+</datalist>
+
+<button onclick="sendWhatsAppOrder()">
+Order Now
+</button>
 
 </div>
 
@@ -391,49 +570,9 @@ Account
 
 <script>
 
-/* ORDER FUNCTION */
+let cart = [];
 
-function orderNow(item,price,qtyId,locationId){
-
-var qty =
-document.getElementById(qtyId).value;
-
-var location =
-document.getElementById(locationId).value;
-
-if(qty==""){
-
-alert("Please enter quantity");
-return;
-
-}
-
-if(location==""){
-
-alert("Please enter delivery location");
-return;
-
-}
-
-var message =
-`*BSR Fish Order*
-
-🐟 Item : ${item}
-⚖️ Quantity : ${qty}
-💰 Price : ${price}
-📍 Delivery Location : ${location}
-
-Please confirm my order.`;
-
-var url =
-"https://wa.me/918891416068?text=" +
-encodeURIComponent(message);
-
-window.open(url,'_blank');
-
-}
-
-/* SEARCH FUNCTION */
+/* SEARCH */
 
 function searchFish(){
 
@@ -463,6 +602,186 @@ items[i].style.display="none";
 }
 
 }
+
+}
+
+/* CALCULATE PRICE */
+
+function calculatePrice(rate,qtyId,unitId,totalId){
+
+var qty =
+document.getElementById(qtyId).value;
+
+var unit =
+document.getElementById(unitId).value;
+
+if(qty==""){
+
+document.getElementById(totalId)
+.innerHTML = "Total : ₹0";
+
+return;
+
+}
+
+var total = 0;
+
+if(unit=="KG"){
+
+total = qty * rate;
+
+}else{
+
+total = (qty / 1000) * rate;
+
+}
+
+document.getElementById(totalId)
+.innerHTML =
+"Total : ₹" + total.toFixed(2);
+
+}
+
+/* ADD TO CART */
+
+function addToCart(item,rate,qtyId,unitId,stockId){
+
+var stock =
+document.getElementById(stockId).innerText;
+
+if(stock=="Stock Out"){
+
+alert("This item is out of stock");
+return;
+
+}
+
+var qty =
+document.getElementById(qtyId).value;
+
+var unit =
+document.getElementById(unitId).value;
+
+if(qty==""){
+
+alert("Please enter quantity");
+return;
+
+}
+
+var total = 0;
+
+if(unit=="KG"){
+
+total = qty * rate;
+
+}else{
+
+total = (qty / 1000) * rate;
+
+}
+
+cart.push({
+item:item,
+qty:qty,
+unit:unit,
+total:total
+});
+
+showCart();
+
+}
+
+/* SHOW CART */
+
+function showCart(){
+
+let cartHTML = "";
+
+let grandTotal = 0;
+
+for(let i=0;i<cart.length;i++){
+
+grandTotal += cart[i].total;
+
+cartHTML += `
+
+<div class="cart-item">
+
+<h3>${cart[i].item}</h3>
+
+<p>
+⚖️ ${cart[i].qty} ${cart[i].unit}
+</p>
+
+<p>
+💰 ₹${cart[i].total.toFixed(2)}
+</p>
+
+</div>
+
+`;
+
+}
+
+document.getElementById("cartItems")
+.innerHTML = cartHTML;
+
+document.getElementById("grandTotal")
+.innerHTML = grandTotal.toFixed(2);
+
+}
+
+/* WHATSAPP ORDER */
+
+function sendWhatsAppOrder(){
+
+var location =
+document.getElementById("customerLocation")
+.value;
+
+if(location==""){
+
+alert("Please enter delivery location");
+return;
+
+}
+
+if(cart.length==0){
+
+alert("Cart is empty");
+return;
+
+}
+
+let message =
+"*BSR Fish Order*%0A%0A";
+
+let grandTotal = 0;
+
+for(let i=0;i<cart.length;i++){
+
+message +=
+"🐟 Item : " + cart[i].item + "%0A" +
+"⚖️ Quantity : " + cart[i].qty + " " + cart[i].unit + "%0A" +
+"💰 Price : ₹" + cart[i].total.toFixed(2) + "%0A%0A";
+
+grandTotal += cart[i].total;
+
+}
+
+message +=
+"🧾 Grand Total : ₹" +
+grandTotal.toFixed(2) + "%0A%0A";
+
+message +=
+"📍 Delivery Location : " +
+location;
+
+window.open(
+"https://wa.me/918891416068?text=" + message,
+"_blank"
+);
 
 }
 
