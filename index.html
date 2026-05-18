@@ -1,9 +1,676 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BSR Fish Stall</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f5f5f5;
+padding-bottom:120px;
+}
+
+/* HEADER */
+
+header{
+background:white;
+padding:20px;
+position:sticky;
+top:0;
+z-index:1000;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+text-align:center;
+}
+
+.logo{
+width:90px;
+height:90px;
+border-radius:50%;
+object-fit:cover;
+}
+
+.shop-name{
+font-size:34px;
+font-weight:bold;
+margin-top:10px;
+color:#003049;
+}
+
+.search-box{
+margin-top:15px;
+}
+
+.search-box input{
+width:100%;
+padding:15px;
+border-radius:12px;
+border:2px solid #ddd;
+font-size:18px;
+outline:none;
+}
+
+/* HOME */
+
+.banner{
+margin:20px;
+border-radius:20px;
+overflow:hidden;
+}
+
+.banner img{
+width:100%;
+border-radius:20px;
+}
+
+.title{
+font-size:35px;
+font-weight:bold;
+text-align:center;
+margin:20px 0;
+color:#003049;
+}
+
+/* PRODUCTS */
+
+.products{
+padding:20px;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:20px;
+}
+
+.product{
+background:white;
+padding:15px;
+border-radius:20px;
+text-align:center;
+box-shadow:0 2px 10px rgba(0,0,0,0.08);
+}
+
+.product img{
+width:100%;
+height:200px;
+object-fit:cover;
+border-radius:15px;
+}
+
+.product h2{
+margin-top:10px;
+font-size:26px;
+}
+
+.price{
+font-size:28px;
+font-weight:bold;
+color:#ff6b00;
+margin-top:10px;
+}
+
+.stock-status{
+margin-top:10px;
+padding:10px;
+border-radius:10px;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.in-stock{
+background:#d4edda;
+color:green;
+}
+
+.out-stock{
+background:#ffd6d6;
+color:red;
+}
+
+.qty-input,
+.location-input{
+width:100%;
+padding:14px;
+margin-top:12px;
+border-radius:10px;
+border:1px solid #ccc;
+font-size:17px;
+outline:none;
+}
+
+.total{
+margin-top:12px;
+font-size:22px;
+font-weight:bold;
+color:green;
+}
+
+button{
+margin-top:15px;
+width:100%;
+padding:15px;
+border:none;
+background:#25D366;
+color:white;
+font-size:18px;
+font-weight:bold;
+border-radius:12px;
+cursor:pointer;
+}
+
+/* CART */
+
+.cart-section{
+background:white;
+margin:20px;
+padding:20px;
+border-radius:20px;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+.cart-item{
+padding:10px 0;
+border-bottom:1px solid #ddd;
+}
+
+/* NAVIGATION */
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:white;
+display:flex;
+justify-content:space-around;
+padding:18px 0;
+box-shadow:0 -2px 10px rgba(0,0,0,0.1);
+}
+
+.bottom-nav a{
+text-decoration:none;
+color:#003049;
+font-size:20px;
+font-weight:bold;
+text-align:center;
+}
+
+/* AI CHAT */
+
+#chatButton{
+position:fixed;
+bottom:110px;
+right:20px;
+width:65px;
+height:65px;
+background:#25D366;
+color:white;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+cursor:pointer;
+}
+
+#chatBox{
+position:fixed;
+bottom:190px;
+right:20px;
+width:320px;
+background:white;
+border-radius:20px;
+overflow:hidden;
+display:none;
+box-shadow:0 2px 15px rgba(0,0,0,0.2);
+}
+
+.chat-header{
+background:#25D366;
+color:white;
+padding:15px;
+font-size:20px;
+font-weight:bold;
+text-align:center;
+}
+
+#chatMessages{
+height:300px;
+overflow-y:auto;
+padding:15px;
+background:#f5f5f5;
+}
+
+.bot-message,
+.user-message{
+padding:12px;
+border-radius:12px;
+margin-bottom:10px;
+font-size:16px;
+max-width:85%;
+}
+
+.bot-message{
+background:white;
+}
+
+.user-message{
+background:#dcf8c6;
+margin-left:auto;
+}
+
+.chat-input-area{
+display:flex;
+padding:10px;
+}
+
+.chat-input-area input{
+flex:1;
+padding:12px;
+border:1px solid #ccc;
+border-radius:10px;
+}
+
+.chat-input-area button{
+width:80px;
+margin-left:10px;
+margin-top:0;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+.products{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+
+<img src="logo.png" class="logo">
+
+<div class="shop-name">
+BSR Fish Stall
+</div>
+
+<div class="search-box">
+
+<input
+type="text"
+id="searchInput"
+placeholder="മീൻ Search ചെയ്യൂ..."
+onkeyup="searchFish()"
+>
+
+</div>
+
+</header>
+
+<!-- HOME PAGE -->
+
+<div id="homePage">
+
+<div class="banner">
+<img src="banner.jpg">
+</div>
+
+<div class="title">
+Fresh Fish Home Delivery 🐟
+</div>
+
+</div>
+
+<!-- CATEGORY PAGE -->
+
+<div id="categoryPage" style="display:none;">
+
+<div class="title">
+Fresh Fish Items
+</div>
+
+<div class="products">
+
+<!-- AYALA -->
+
+<div class="product fish-item">
+
+<img src="fish1.jpg">
+
+<h2>അയല</h2>
+
+<div class="price">
+₹220 / KG
+</div>
+
+<div
+class="stock-status in-stock"
+id="stock1"
+onclick="toggleStock('stock1')"
+>
+In Stock
+</div>
+
+<select
+id="unit1"
+class="qty-input"
+onchange="calculatePrice(220,'qty1','unit1','total1')">
+
+<option value="GM">GM</option>
+<option value="KG">KG</option>
+
+</select>
+
+<input
+type="number"
+id="qty1"
+class="qty-input"
+placeholder="Quantity"
+onkeyup="calculatePrice(220,'qty1','unit1','total1')"
+>
+
+<div id="total1" class="total">
+Total : ₹0
+</div>
+
+<button
+onclick="addToCart('അയല',220,'qty1','unit1','stock1')"
+>
+Add To Cart
+</button>
+
+</div>
+
+<!-- MATHI -->
+
+<div class="product fish-item">
+
+<img src="fish2.jpg">
+
+<h2>മത്തി</h2>
+
+<div class="price">
+₹180 / KG
+</div>
+
+<div
+class="stock-status in-stock"
+id="stock2"
+onclick="toggleStock('stock2')"
+>
+In Stock
+</div>
+
+<select
+id="unit2"
+class="qty-input"
+onchange="calculatePrice(180,'qty2','unit2','total2')">
+
+<option value="GM">GM</option>
+<option value="KG">KG</option>
+
+</select>
+
+<input
+type="number"
+id="qty2"
+class="qty-input"
+placeholder="Quantity"
+onkeyup="calculatePrice(180,'qty2','unit2','total2')"
+>
+
+<div id="total2" class="total">
+Total : ₹0
+</div>
+
+<button
+onclick="addToCart('മത്തി',180,'qty2','unit2','stock2')"
+>
+Add To Cart
+</button>
+
+</div>
+
+<!-- CHEMMEEN -->
+
+<div class="product fish-item">
+
+<img src="fish3.jpg">
+
+<h2>ചെമ്മീൻ</h2>
+
+<div class="price">
+₹450 / KG
+</div>
+
+<div
+class="stock-status in-stock"
+id="stock3"
+onclick="toggleStock('stock3')"
+>
+In Stock
+</div>
+
+<select
+id="unit3"
+class="qty-input"
+onchange="calculatePrice(450,'qty3','unit3','total3')">
+
+<option value="GM">GM</option>
+<option value="KG">KG</option>
+
+</select>
+
+<input
+type="number"
+id="qty3"
+class="qty-input"
+placeholder="Quantity"
+onkeyup="calculatePrice(450,'qty3','unit3','total3')"
+>
+
+<div id="total3" class="total">
+Total : ₹0
+</div>
+
+<button
+onclick="addToCart('ചെമ്മീൻ',450,'qty3','unit3','stock3')"
+>
+Add To Cart
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- CART PAGE -->
+
+<div id="cartPage" style="display:none;">
+
+<div class="cart-section">
+
+<h2>🛒 Cart Items</h2>
+
+<div id="cartItems">
+No items added
+</div>
+
+<input
+type="text"
+id="customerName"
+class="location-input"
+placeholder="Enter Your Name"
+>
+
+<input
+type="number"
+id="customerNumber"
+class="location-input"
+placeholder="Enter Mobile Number"
+>
+
+<input
+type="text"
+id="customerLocation"
+class="location-input"
+placeholder="Delivery Location"
+list="locationList"
+>
+
+<datalist id="locationList">
+
+<option value="Kunnicode">
+<option value="Pathanapuram">
+<option value="Punalur">
+<option value="Anchal">
+<option value="Ayoor">
+
+</datalist>
+
+<select
+id="distance"
+class="location-input"
+onchange="updateDeliveryCharge()"
+>
+
+<option value="0">
+Select Distance
+</option>
+
+<option value="5">
+0 - 5 KM
+</option>
+
+<option value="10">
+5 - 10 KM
+</option>
+
+<option value="20">
+10 - 20 KM
+</option>
+
+<option value="30">
+20+ KM
+</option>
+
+</select>
+
+<h3 style="margin-top:15px;">
+🚚 Delivery Charge :
+₹<span id="deliveryCharge">0</span>
+</h3>
+
+<h2 style="margin-top:20px;">
+🧾 Grand Total :
+₹<span id="grandTotal">0</span>
+</h2>
+
+<button onclick="sendWhatsAppOrder()">
+Order Now
+</button>
+
+</div>
+
+</div>
+
+<!-- ACCOUNT -->
+
+<div id="accountPage" style="display:none;">
+
+<div class="cart-section">
+
+<h2>👤 Account</h2>
+
+<p style="margin-top:15px;">
+BSR Fish Stall
+</p>
+
+</div>
+
+</div>
+
+<!-- AI CHAT -->
+
+<div id="chatButton" onclick="toggleChat()">
+💬
+</div>
+
+<div id="chatBox">
+
+<div class="chat-header">
+Fish AI Assistant
+</div>
+
+<div id="chatMessages">
+
+<div class="bot-message">
+Hi 👋 മീനുകളുടെ health benefits ചോദിക്കാം 🐟
+</div>
+
+</div>
+
+<div class="chat-input-area">
+
+<input
+type="text"
+id="chatInput"
+placeholder="Ask something..."
+>
+
+<button onclick="sendMessage()">
+Send
+</button>
+
+</div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+
+<div class="bottom-nav">
+
+<a href="#" onclick="showPage('homePage')">
+🏠<br>Home
+</a>
+
+<a href="#" onclick="showPage('categoryPage')">
+🐟<br>Category
+</a>
+
+<a href="#" onclick="showPage('cartPage')">
+🛒<br>Cart
+</a>
+
+<a href="#" onclick="showPage('accountPage')">
+👤<br>Account
+</a>
+
+</div>
+
 <script>
 
 let cart = [];
 let deliveryCharge = 0;
 
-/* PAGE SWITCH */
+/* PAGE */
 
 function showPage(pageId){
 
@@ -49,7 +716,7 @@ items[i].style.display="none";
 
 }
 
-/* PRICE CALCULATION */
+/* PRICE */
 
 function calculatePrice(rate,qtyId,unitId,totalId){
 
@@ -62,7 +729,7 @@ document.getElementById(unitId).value;
 if(qty==""){
 
 document.getElementById(totalId)
-.innerHTML = "Total : ₹0";
+.innerHTML="Total : ₹0";
 
 return;
 
@@ -98,7 +765,6 @@ if(stock.innerText=="In Stock"){
 stock.innerText="Stock Out";
 
 stock.classList.remove("in-stock");
-
 stock.classList.add("out-stock");
 
 }else{
@@ -106,7 +772,6 @@ stock.classList.add("out-stock");
 stock.innerText="In Stock";
 
 stock.classList.remove("out-stock");
-
 stock.classList.add("in-stock");
 
 }
@@ -153,19 +818,15 @@ total = (qty / 1000) * rate;
 }
 
 cart.push({
-
 item:item,
 qty:qty,
 unit:unit,
 total:total
-
 });
-
-/* SHOW CART */
 
 showCart();
 
-/* DIRECT CART OPEN */
+/* DIRECT CART */
 
 showPage('cartPage');
 
@@ -173,7 +834,7 @@ alert("Cart ൽ Added ✅");
 
 }
 
-/* DELIVERY CHARGE */
+/* DELIVERY */
 
 function updateDeliveryCharge(){
 
@@ -222,7 +883,6 @@ showCart();
 function showCart(){
 
 let cartHTML = "";
-
 let grandTotal = 0;
 
 for(let i=0;i<cart.length;i++){
@@ -235,20 +895,14 @@ cartHTML += `
 
 <h3>${cart[i].item}</h3>
 
-<p>
-⚖️ ${cart[i].qty} ${cart[i].unit}
-</p>
+<p>⚖️ ${cart[i].qty} ${cart[i].unit}</p>
 
-<p>
-💰 ₹${cart[i].total.toFixed(2)}
-</p>
+<p>💰 ₹${cart[i].total.toFixed(2)}</p>
 
 <button
 onclick="deleteItem(${i})"
-style="
-background:red;
-margin-top:10px;
-">
+style="background:red;"
+>
 Delete
 </button>
 
@@ -264,30 +918,8 @@ cartHTML = "No items added";
 
 }
 
-/* FINAL TOTAL */
-
 let finalTotal =
 grandTotal + deliveryCharge;
-
-/* DELIVERY CHARGE SHOW */
-
-cartHTML += `
-
-<div style="
-margin-top:20px;
-font-size:22px;
-font-weight:bold;
-color:#ff6b00;
-">
-
-🚚 Delivery Charge :
-₹${deliveryCharge}
-
-</div>
-
-`;
-
-/* UPDATE */
 
 document.getElementById("cartItems")
 .innerHTML = cartHTML;
@@ -355,8 +987,6 @@ return;
 let message =
 "*BSR Fish Order*%0A%0A";
 
-/* CUSTOMER */
-
 message +=
 "👤 Customer : " +
 customerName + "%0A";
@@ -367,22 +997,12 @@ customerNumber + "%0A%0A";
 
 let grandTotal = 0;
 
-/* ITEMS */
-
 for(let i=0;i<cart.length;i++){
 
 message +=
-
-"🐟 Item : " +
-cart[i].item + "%0A" +
-
-"⚖️ Quantity : " +
-cart[i].qty + " " +
-cart[i].unit + "%0A" +
-
-"💰 Price : ₹" +
-cart[i].total.toFixed(2) +
-"%0A%0A";
+"🐟 Item : " + cart[i].item + "%0A" +
+"⚖️ Quantity : " + cart[i].qty + " " + cart[i].unit + "%0A" +
+"💰 Price : ₹" + cart[i].total.toFixed(2) + "%0A%0A";
 
 grandTotal += cart[i].total;
 
@@ -394,8 +1014,6 @@ message +=
 "🚚 Delivery Charge : ₹" +
 deliveryCharge + "%0A%0A";
 
-/* FINAL TOTAL */
-
 let finalTotal =
 grandTotal + deliveryCharge;
 
@@ -403,13 +1021,8 @@ message +=
 "🧾 Grand Total : ₹" +
 finalTotal.toFixed(2) + "%0A%0A";
 
-/* LOCATION */
-
 message +=
-"📍 Location : " +
-location;
-
-/* WHATSAPP */
+"📍 Location : " + location;
 
 window.open(
 "https://api.whatsapp.com/send?phone=918891416068&text=" + message,
@@ -450,8 +1063,6 @@ if(message=="") return;
 var chatMessages =
 document.getElementById("chatMessages");
 
-/* USER MESSAGE */
-
 chatMessages.innerHTML += `
 <div class="user-message">
 ${input.value}
@@ -460,8 +1071,6 @@ ${input.value}
 
 let reply =
 "മീൻ health benefits ചോദിക്കാം 🐟";
-
-/* AI REPLIES */
 
 if(message.includes("അയല")){
 
@@ -484,15 +1093,6 @@ reply =
 
 }
 
-else if(message.includes("നെയ്മീൻ")){
-
-reply =
-"നെയ്മീൻ ആരോഗ്യത്തിന് നല്ലതാണ് 🛡️";
-
-}
-
-/* BOT MESSAGE */
-
 chatMessages.innerHTML += `
 <div class="bot-message">
 ${reply}
@@ -507,3 +1107,6 @@ chatMessages.scrollHeight;
 }
 
 </script>
+
+</body>
+</html>
