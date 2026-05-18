@@ -1,1 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>BSR Fish Stall</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f5f5f5;
+padding-bottom:100px;
+}
+
+/* HEADER */
+
+header{
+background:white;
+padding:20px;
+position:sticky;
+top:0;
+z-index:1000;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+text-align:center;
+}
+
+.logo{
+width:90px;
+height:90px;
+border-radius:50%;
+object-fit:cover;
+}
+
+.shop-name{
+font-size:35px;
+font-weight:bold;
+margin-top:10px;
+color:#003049;
+}
+
+/* SEARCH */
+
+.search-box{
+margin-top:15px;
+}
+
+.search-box input{
+width:100%;
+padding:15px;
+border-radius:12px;
+border:2px solid #ddd;
+font-size:18px;
+outline:none;
+}
+
+/* BANNER */
+
+.banner{
+margin:20px;
+border-radius:20px;
+overflow:hidden;
+}
+
+.banner img{
+width:100%;
+display:block;
+}
+
+/* TITLE */
+
+.title{
+font-size:38px;
+font-weight:bold;
+text-align:center;
+margin:20px 0;
+color:#003049;
+}
+
+/* PRODUCTS */
+
+.products{
+padding:20px;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:20px;
+}
+
+.product{
+background:white;
+border-radius:20px;
+padding:15px;
+box-shadow:0 2px 10px rgba(0,0,0,0.08);
+text-align:center;
+}
+
+.product img{
+width:100%;
+height:180px;
+object-fit:cover;
+border-radius:15px;
+}
+
+.product h2{
+margin-top:10px;
+font-size:24px;
+}
+
+.price{
+margin-top:10px;
+font-size:30px;
+font-weight:bold;
+color:#ff6b00;
+}
+
+/* INPUTS */
+
+.qty-input,
+.location-input{
+width:100%;
+padding:12px;
+margin-top:12px;
+border-radius:10px;
+border:1px solid #ccc;
+font-size:16px;
+outline:none;
+}
+
+/* BUTTON */
+
+button{
+margin-top:15px;
+width:100%;
+padding:14px;
+border:none;
+background:#25D366;
+color:white;
+font-size:18px;
+font-weight:bold;
+border-radius:12px;
+cursor:pointer;
+}
+
+button:hover{
+opacity:0.9;
+}
+
+/* BOTTOM NAV */
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:white;
+display:flex;
+justify-content:space-around;
+align-items:center;
+padding:12px 0;
+box-shadow:0 -2px 10px rgba(0,0,0,0.1);
+z-index:1000;
+}
+
+.bottom-nav a{
+text-decoration:none;
+color:#003049;
+font-size:15px;
+font-weight:bold;
+text-align:center;
+line-height:1.5;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+.products{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+
+<img src="logo.png" class="logo">
+
+<div class="shop-name">
+BSR Fish Stall
+</div>
+
+<div class="search-box">
+
+<input
+type="text"
+id="searchInput"
+placeholder="Search Fish Items..."
+onkeyup="searchFish()"
+>
+
+</div>
+
+</header>
+
+<!-- BANNER -->
+
+<div class="banner">
+<img src="banner.jpg">
+</div>
+
+<!-- TITLE -->
+
+<div class="title">
+Fresh Fish Items
+</div>
+
+<!-- PRODUCTS -->
+
+<div class="products">
+
+<!-- PRODUCT 1 -->
+
+<div class="product fish-item">
+
+<img src="fish1.jpg">
+
+<h2>Ayala Fish</h2>
+
+<div class="price">
+₹220 / KG
+</div>
+
+<input
+type="text"
+id="qty1"
+class="qty-input"
+placeholder="Enter Quantity (500GM or 2KG)"
+>
+
+<input
+type="text"
+id="location1"
+class="location-input"
+placeholder="Enter Delivery Location"
+>
+
+<button onclick="orderNow('Ayala Fish','₹220 / KG','qty1','location1')">
+Order Now
+</button>
+
+</div>
+
+<!-- PRODUCT 2 -->
+
+<div class="product fish-item">
+
+<img src="fish2.jpg">
+
+<h2>Mathi Fish</h2>
+
+<div class="price">
+₹180 / KG
+</div>
+
+<input
+type="text"
+id="qty2"
+class="qty-input"
+placeholder="Enter Quantity (500GM or 2KG)"
+>
+
+<input
+type="text"
+id="location2"
+class="location-input"
+placeholder="Enter Delivery Location"
+>
+
+<button onclick="orderNow('Mathi Fish','₹180 / KG','qty2','location2')">
+Order Now
+</button>
+
+</div>
+
+<!-- PRODUCT 3 -->
+
+<div class="product fish-item">
+
+<img src="fish3.jpg">
+
+<h2>Prawns</h2>
+
+<div class="price">
+₹450 / KG
+</div>
+
+<input
+type="text"
+id="qty3"
+class="qty-input"
+placeholder="Enter Quantity (500GM or 2KG)"
+>
+
+<input
+type="text"
+id="location3"
+class="location-input"
+placeholder="Enter Delivery Location"
+>
+
+<button onclick="orderNow('Prawns','₹450 / KG','qty3','location3')">
+Order Now
+</button>
+
+</div>
+
+<!-- PRODUCT 4 -->
+
+<div class="product fish-item">
+
+<img src="fish4.jpg">
+
+<h2>King Fish</h2>
+
+<div class="price">
+₹900 / KG
+</div>
+
+<input
+type="text"
+id="qty4"
+class="qty-input"
+placeholder="Enter Quantity (500GM or 2KG)"
+>
+
+<input
+type="text"
+id="location4"
+class="location-input"
+placeholder="Enter Delivery Location"
+>
+
+<button onclick="orderNow('King Fish','₹900 / KG','qty4','location4')">
+Order Now
+</button>
+
+</div>
+
+</div>
+
+<!-- BOTTOM NAVIGATION -->
+
+<div class="bottom-nav">
+
+<a href="#">
+🏠<br>
+Home
+</a>
+
+<a href="#">
+🐟<br>
+Category
+</a>
+
+<a href="#">
+🛒<br>
+Cart
+</a>
+
+<a href="#">
+👤<br>
+Account
+</a>
+
+</div>
+
+<!-- SCRIPT -->
+
+<script>
+
+/* ORDER FUNCTION */
+
+function orderNow(item,price,qtyId,locationId){
+
+var qty =
+document.getElementById(qtyId).value;
+
+var location =
+document.getElementById(locationId).value;
+
+if(qty==""){
+
+alert("Please enter quantity");
+return;
+
+}
+
+if(location==""){
+
+alert("Please enter delivery location");
+return;
+
+}
+
+var message =
+`*BSR Fish Order*
+
+🐟 Item : ${item}
+⚖️ Quantity : ${qty}
+💰 Price : ${price}
+📍 Delivery Location : ${location}
+
+Please confirm my order.`;
+
+var url =
+"https://wa.me/918891416068?text=" +
+encodeURIComponent(message);
+
+window.open(url,'_blank');
+
+}
+
+/* SEARCH FUNCTION */
+
+function searchFish(){
+
+let input =
+document.getElementById("searchInput")
+.value.toLowerCase();
+
+let items =
+document.getElementsByClassName("fish-item");
+
+for(let i=0;i<items.length;i++){
+
+let fishName =
+items[i]
+.getElementsByTagName("h2")[0]
+.innerText
+.toLowerCase();
+
+if(fishName.includes(input)){
+
+items[i].style.display="block";
+
+}else{
+
+items[i].style.display="none";
+
+}
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
