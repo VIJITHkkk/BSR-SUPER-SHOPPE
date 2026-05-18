@@ -1,5 +1,4 @@
-
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ml">
 <head>
 <meta charset="UTF-8">
@@ -238,7 +237,6 @@ justify-content:center;
 font-size:30px;
 cursor:pointer;
 z-index:2000;
-box-shadow:0 2px 10px rgba(0,0,0,0.2);
 }
 
 #chatBox{
@@ -380,7 +378,7 @@ Fresh Fish Items
 
 <div class="products">
 
-<!-- AYALA -->
+<!-- PRODUCT 1 -->
 
 <div class="product fish-item">
 
@@ -435,7 +433,7 @@ Add To Cart
 
 </div>
 
-<!-- MATHI -->
+<!-- PRODUCT 2 -->
 
 <div class="product fish-item">
 
@@ -490,7 +488,7 @@ Add To Cart
 
 </div>
 
-<!-- CHEMMEEN -->
+<!-- PRODUCT 3 -->
 
 <div class="product fish-item">
 
@@ -545,61 +543,6 @@ Add To Cart
 
 </div>
 
-<!-- NEYMEEN -->
-
-<div class="product fish-item">
-
-<img src="fish4.jpg">
-
-<h2>നെയ്മീൻ</h2>
-
-<div class="price">
-₹900 / KG
-</div>
-
-<div
-class="stock-status in-stock"
-id="stock4"
-onclick="toggleStock('stock4')"
->
-In Stock
-</div>
-
-<select
-id="unit4"
-class="qty-input"
-onchange="calculatePrice(900,'qty4','unit4','total4')">
-
-<option value="GM">GM</option>
-<option value="KG">KG</option>
-
-</select>
-
-<input
-type="number"
-id="qty4"
-class="qty-input"
-placeholder="Quantity"
-onkeyup="calculatePrice(900,'qty4','unit4','total4')"
->
-
-<div id="total4" class="total">
-Total : ₹0
-</div>
-
-<button
-onclick="addToCart(
-'നെയ്മീൻ',
-900,
-'qty4',
-'unit4',
-'stock4'
-)">
-Add To Cart
-</button>
-
-</div>
-
 </div>
 
 </div>
@@ -610,17 +553,25 @@ Add To Cart
 
 <div class="cart-section">
 
-<h2>
-🛒 Cart Items
-</h2>
+<h2>🛒 Cart Items</h2>
 
 <div id="cartItems">
 No items added
 </div>
 
-<h2 style="margin-top:20px;">
-Grand Total : ₹<span id="grandTotal">0</span>
-</h2>
+<input
+type="text"
+id="customerName"
+class="location-input"
+placeholder="Enter Your Name"
+>
+
+<input
+type="number"
+id="customerNumber"
+class="location-input"
+placeholder="Enter Mobile Number"
+>
 
 <input
 type="text"
@@ -633,31 +584,49 @@ list="locationList"
 <datalist id="locationList">
 
 <option value="Kunnicode">
-<option value="Vilakkupara">
-<option value="Thadikkadu">
-<option value="Nedumoncavu">
-<option value="Elamannoor">
-<option value="Kadakkal">
-<option value="Chadayamangalam">
-<option value="Nilamel">
-<option value="Ayoor">
-<option value="Anchal">
 <option value="Pathanapuram">
-<option value="Pattazhy">
-<option value="Piravanthur">
-<option value="Manchalloor">
-<option value="Pidavoor">
-<option value="Vilakkudy">
-<option value="Thalavoor">
-<option value="Podiyattuvila">
-<option value="Karavaloor">
-<option value="Punnala">
-<option value="Mancode">
-<option value="Malayankavu">
-<option value="Kariyara">
-<option value="Edamon">
+<option value="Punalur">
+<option value="Anchal">
+<option value="Ayoor">
 
 </datalist>
+
+<select
+id="distance"
+class="location-input"
+onchange="updateDeliveryCharge()"
+>
+
+<option value="0">
+Select Distance
+</option>
+
+<option value="5">
+0 - 5 KM
+</option>
+
+<option value="10">
+5 - 10 KM
+</option>
+
+<option value="20">
+10 - 20 KM
+</option>
+
+<option value="30">
+20+ KM
+</option>
+
+</select>
+
+<h3 style="margin-top:15px;">
+🚚 Delivery Charge :
+₹<span id="deliveryCharge">0</span>
+</h3>
+
+<h2 style="margin-top:20px;">
+Grand Total : ₹<span id="grandTotal">0</span>
+</h2>
 
 <button onclick="sendWhatsAppOrder()">
 Order Now
@@ -667,7 +636,7 @@ Order Now
 
 </div>
 
-<!-- ACCOUNT PAGE -->
+<!-- ACCOUNT -->
 
 <div id="accountPage" style="display:none;">
 
@@ -680,7 +649,7 @@ BSR Fish Stall
 </p>
 
 <p style="margin-top:10px;font-size:18px;">
-Fresh Fish Home Delivery Service
+Fresh Fish Home Delivery
 </p>
 
 </div>
@@ -723,39 +692,34 @@ Send
 
 </div>
 
-<!-- BOTTOM NAVIGATION -->
+<!-- BOTTOM NAV -->
 
 <div class="bottom-nav">
 
 <a href="#" onclick="showPage('homePage')">
-🏠<br>
-Home
+🏠<br>Home
 </a>
 
 <a href="#" onclick="showPage('categoryPage')">
-🐟<br>
-Category
+🐟<br>Category
 </a>
 
 <a href="#" onclick="showPage('cartPage')">
-🛒<br>
-Cart
+🛒<br>Cart
 </a>
 
 <a href="#" onclick="showPage('accountPage')">
-👤<br>
-Account
+👤<br>Account
 </a>
 
 </div>
 
-<!-- SCRIPT -->
-
 <script>
 
 let cart = [];
+let deliveryCharge = 0;
 
-/* PAGE SWITCH */
+/* PAGE */
 
 function showPage(pageId){
 
@@ -820,7 +784,7 @@ return;
 
 }
 
-var total=0;
+var total = 0;
 
 if(unit=="KG"){
 
@@ -850,7 +814,6 @@ if(stock.innerText=="In Stock"){
 stock.innerText="Stock Out";
 
 stock.classList.remove("in-stock");
-
 stock.classList.add("out-stock");
 
 }else{
@@ -858,14 +821,13 @@ stock.classList.add("out-stock");
 stock.innerText="In Stock";
 
 stock.classList.remove("out-stock");
-
 stock.classList.add("in-stock");
 
 }
 
 }
 
-/* ADD CART */
+/* ADD TO CART */
 
 function addToCart(item,rate,qtyId,unitId,stockId){
 
@@ -917,12 +879,55 @@ alert("Cart ൽ Added ✅");
 
 }
 
+/* DELIVERY */
+
+function updateDeliveryCharge(){
+
+let km =
+document.getElementById("distance").value;
+
+if(km == 5){
+
+deliveryCharge = 20;
+
+}
+
+else if(km == 10){
+
+deliveryCharge = 40;
+
+}
+
+else if(km == 20){
+
+deliveryCharge = 60;
+
+}
+
+else if(km == 30){
+
+deliveryCharge = 100;
+
+}
+
+else{
+
+deliveryCharge = 0;
+
+}
+
+document.getElementById("deliveryCharge")
+.innerHTML = deliveryCharge;
+
+showCart();
+
+}
+
 /* SHOW CART */
 
 function showCart(){
 
 let cartHTML = "";
-
 let grandTotal = 0;
 
 for(let i=0;i<cart.length;i++){
@@ -957,15 +962,18 @@ Delete
 
 if(cart.length==0){
 
-cartHTML="No items added";
+cartHTML = "No items added";
 
 }
 
+let finalTotal =
+grandTotal + deliveryCharge;
+
 document.getElementById("cartItems")
-.innerHTML=cartHTML;
+.innerHTML = cartHTML;
 
 document.getElementById("grandTotal")
-.innerHTML=grandTotal.toFixed(2);
+.innerHTML = finalTotal.toFixed(2);
 
 }
 
@@ -979,13 +987,35 @@ showCart();
 
 }
 
-/* WHATSAPP */
+/* WHATSAPP ORDER */
 
 function sendWhatsAppOrder(){
+
+var customerName =
+document.getElementById("customerName")
+.value;
+
+var customerNumber =
+document.getElementById("customerNumber")
+.value;
 
 var location =
 document.getElementById("customerLocation")
 .value;
+
+if(customerName==""){
+
+alert("Name enter ചെയ്യുക");
+return;
+
+}
+
+if(customerNumber==""){
+
+alert("Mobile Number enter ചെയ്യുക");
+return;
+
+}
 
 if(location==""){
 
@@ -1004,6 +1034,14 @@ return;
 let message =
 "*BSR Fish Order*%0A%0A";
 
+message +=
+"👤 Customer : " +
+customerName + "%0A";
+
+message +=
+"📞 Mobile : " +
+customerNumber + "%0A%0A";
+
 let grandTotal = 0;
 
 for(let i=0;i<cart.length;i++){
@@ -1016,6 +1054,12 @@ message +=
 grandTotal += cart[i].total;
 
 }
+
+message +=
+"🚚 Delivery Charge : ₹" +
+deliveryCharge + "%0A%0A";
+
+grandTotal += deliveryCharge;
 
 message +=
 "🧾 Grand Total : ₹" +
@@ -1075,14 +1119,14 @@ let reply =
 if(message.includes("അയല")){
 
 reply =
-"അയലയിൽ Omega-3 കൂടുതലാണ് ❤️ ഹൃദയാരോഗ്യത്തിന് നല്ലതാണ്.";
+"അയലയിൽ Omega-3 കൂടുതലാണ് ❤️";
 
 }
 
 else if(message.includes("മത്തി")){
 
 reply =
-"മത്തി കാൽസ്യം, പ്രോട്ടീൻ എന്നിവ കൊണ്ട് സമ്പന്നമാണ് 🧠";
+"മത്തി കാൽസ്യം കൂടുതലുള്ള മത്സ്യമാണ് 🧠";
 
 }
 
@@ -1090,20 +1134,6 @@ else if(message.includes("ചെമ്മീൻ")){
 
 reply =
 "ചെമ്മീൻ പ്രോട്ടീൻ കൂടുതലുള്ള മത്സ്യമാണ് 💪";
-
-}
-
-else if(message.includes("നെയ്മീൻ")){
-
-reply =
-"നെയ്മീൻ ശരീര പ്രതിരോധശേഷി വർധിപ്പിക്കാൻ സഹായിക്കുന്നു 🛡️";
-
-}
-
-else if(message.includes("മീൻ")){
-
-reply =
-"മീൻ ആരോഗ്യത്തിന് വളരെ നല്ലതാണ് 🐟";
 
 }
 
