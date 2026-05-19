@@ -1,14 +1,515 @@
-<!-- DELIVERY STATUS -->
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BSR Fish Stall</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f5f5f5;
+padding-bottom:120px;
+}
+
+/* HEADER */
+
+header{
+background:white;
+padding:20px;
+position:sticky;
+top:0;
+z-index:1000;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+text-align:center;
+}
+
+.logo{
+width:90px;
+height:90px;
+border-radius:50%;
+object-fit:cover;
+}
+
+.shop-name{
+font-size:34px;
+font-weight:bold;
+margin-top:10px;
+color:#003049;
+}
+
+.search-box{
+margin-top:15px;
+}
+
+.search-box input{
+width:100%;
+padding:15px;
+border-radius:12px;
+border:2px solid #ddd;
+font-size:18px;
+outline:none;
+}
+
+/* HOME */
+
+.banner{
+margin:20px;
+border-radius:20px;
+overflow:hidden;
+}
+
+.banner img{
+width:100%;
+border-radius:20px;
+}
+
+.title{
+font-size:35px;
+font-weight:bold;
+text-align:center;
+margin:20px 0;
+color:#003049;
+}
+
+/* PRODUCTS */
+
+.products{
+padding:20px;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:20px;
+}
+
+.product{
+background:white;
+padding:15px;
+border-radius:20px;
+text-align:center;
+box-shadow:0 2px 10px rgba(0,0,0,0.08);
+}
+
+.product img{
+width:100%;
+height:200px;
+object-fit:cover;
+border-radius:15px;
+}
+
+.product h2{
+margin-top:10px;
+font-size:26px;
+}
+
+.price{
+font-size:28px;
+font-weight:bold;
+color:#ff6b00;
+margin-top:10px;
+}
+
+.stock-status{
+margin-top:10px;
+padding:10px;
+border-radius:10px;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.in-stock{
+background:#d4edda;
+color:green;
+}
+
+.out-stock{
+background:#ffd6d6;
+color:red;
+}
+
+.qty-input,
+.location-input{
+width:100%;
+padding:14px;
+margin-top:12px;
+border-radius:10px;
+border:1px solid #ccc;
+font-size:17px;
+outline:none;
+}
+
+.total{
+margin-top:12px;
+font-size:22px;
+font-weight:bold;
+color:green;
+}
+
+button{
+margin-top:15px;
+width:100%;
+padding:15px;
+border:none;
+background:#25D366;
+color:white;
+font-size:18px;
+font-weight:bold;
+border-radius:12px;
+cursor:pointer;
+}
+
+/* CART */
+
+.cart-section{
+background:white;
+margin:20px;
+padding:20px;
+border-radius:20px;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+.cart-item{
+padding:10px 0;
+border-bottom:1px solid #ddd;
+}
+
+/* NAVIGATION */
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:white;
+display:flex;
+justify-content:space-around;
+padding:18px 0;
+box-shadow:0 -2px 10px rgba(0,0,0,0.1);
+}
+
+.bottom-nav a{
+text-decoration:none;
+color:#003049;
+font-size:20px;
+font-weight:bold;
+text-align:center;
+}
+
+/* AI CHAT */
+
+#chatButton{
+position:fixed;
+bottom:110px;
+right:20px;
+width:65px;
+height:65px;
+background:#25D366;
+color:white;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+cursor:pointer;
+}
+
+#chatBox{
+position:fixed;
+bottom:190px;
+right:20px;
+width:320px;
+background:white;
+border-radius:20px;
+overflow:hidden;
+display:none;
+box-shadow:0 2px 15px rgba(0,0,0,0.2);
+}
+
+.chat-header{
+background:#25D366;
+color:white;
+padding:15px;
+font-size:20px;
+font-weight:bold;
+text-align:center;
+}
+
+#chatMessages{
+height:300px;
+overflow-y:auto;
+padding:15px;
+background:#f5f5f5;
+}
+
+.bot-message,
+.user-message{
+padding:12px;
+border-radius:12px;
+margin-bottom:10px;
+font-size:16px;
+max-width:85%;
+}
+
+.bot-message{
+background:white;
+}
+
+.user-message{
+background:#dcf8c6;
+margin-left:auto;
+}
+
+.chat-input-area{
+display:flex;
+padding:10px;
+}
+
+.chat-input-area input{
+flex:1;
+padding:12px;
+border:1px solid #ccc;
+border-radius:10px;
+}
+
+.chat-input-area button{
+width:80px;
+margin-left:10px;
+margin-top:0;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+.products{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<img src="logo.png" class="logo">
+
+<div class="shop-name">
+BSR Fish Stall
+</div>
+
+<div class="search-box">
+
+<input
+type="text"
+id="searchInput"
+placeholder="മീൻ Search ചെയ്യൂ..."
+onkeyup="searchFish()"
+>
+
+</div>
+
+</header>
+
+<!-- HOME -->
+
+<div id="homePage">
+
+<div class="banner">
+<img src="banner.jpg">
+</div>
+
+<div class="title">
+Fresh Fish Home Delivery 🐟
+</div>
+
+</div>
+
+<!-- CATEGORY -->
+
+<div id="categoryPage" style="display:none;">
+
+<div class="title">
+Fresh Fish Items
+</div>
+
+<div class="products">
+
+<!-- AYALA -->
+
+<div class="product fish-item">
+
+<img src="fish1.jpg">
+
+<h2>അയല</h2>
+
+<div class="price">
+₹220 / KG
+</div>
+
+<div
+class="stock-status in-stock"
+id="stock1"
+onclick="toggleStock('stock1')"
+>
+In Stock
+</div>
+
+<select
+id="unit1"
+class="qty-input"
+onchange="calculatePrice(220,'qty1','unit1','total1')">
+
+<option value="GM">GM</option>
+<option value="KG">KG</option>
+
+</select>
+
+<input
+type="number"
+id="qty1"
+class="qty-input"
+placeholder="Quantity"
+onkeyup="calculatePrice(220,'qty1','unit1','total1')"
+>
+
+<div id="total1" class="total">
+Total : ₹0
+</div>
+
+<button
+onclick="addToCart('അയല',220,'qty1','unit1','stock1')"
+>
+Add To Cart
+</button>
+
+</div>
+
+<!-- MATHI -->
+
+<div class="product fish-item">
+
+<img src="fish2.jpg">
+
+<h2>മത്തി</h2>
+
+<div class="price">
+₹180 / KG
+</div>
+
+<div
+class="stock-status in-stock"
+id="stock2"
+onclick="toggleStock('stock2')"
+>
+In Stock
+</div>
+
+<select
+id="unit2"
+class="qty-input"
+onchange="calculatePrice(180,'qty2','unit2','total2')">
+
+<option value="GM">GM</option>
+<option value="KG">KG</option>
+
+</select>
+
+<input
+type="number"
+id="qty2"
+class="qty-input"
+placeholder="Quantity"
+onkeyup="calculatePrice(180,'qty2','unit2','total2')"
+>
+
+<div id="total2" class="total">
+Total : ₹0
+</div>
+
+<button
+onclick="addToCart('മത്തി',180,'qty2','unit2','stock2')"
+>
+Add To Cart
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- CART -->
+
+<div id="cartPage" style="display:none;">
 
 <div class="cart-section">
 
-<h2>
-📦 Delivery Status
+<h2>🛒 Cart Items</h2>
+
+<div id="cartItems">
+No items added
+</div>
+
+<input
+type="text"
+id="customerName"
+class="location-input"
+placeholder="Enter Your Name"
+>
+
+<input
+type="number"
+id="customerNumber"
+class="location-input"
+placeholder="Enter Mobile Number"
+>
+
+<input
+type="text"
+id="customerLocation"
+class="location-input"
+placeholder="Delivery Location"
+list="locationList"
+onkeyup="updateDeliveryCharge()"
+>
+
+<datalist id="locationList">
+
+<option value="Kunnicode">
+<option value="Pathanapuram">
+<option value="Punalur">
+<option value="Anchal">
+<option value="Ayoor">
+
+</datalist>
+
+<h3 style="margin-top:15px;">
+🚚 Delivery Charge :
+₹<span id="deliveryCharge">0</span>
+</h3>
+
+<h2 style="margin-top:20px;">
+🧾 Grand Total :
+₹<span id="grandTotal">0</span>
 </h2>
 
-<div id="deliveryStatus"
+<div
+id="deliveryStatus"
 style="
-margin-top:15px;
+margin-top:20px;
 font-size:22px;
 font-weight:bold;
 color:green;
@@ -18,75 +519,92 @@ Order Confirmed ✅
 
 </div>
 
+<button onclick="sendWhatsAppOrder()">
+Order Now
+</button>
+
 </div>
 
-<!-- FIREBASE -->
+</div>
 
-<script type="module">
+<!-- ACCOUNT -->
 
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+<div id="accountPage" style="display:none;">
 
-import {
-getDatabase,
-ref,
-push
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+<div class="cart-section">
 
-/* FIREBASE CONFIG */
+<h2>👤 Account</h2>
 
-const firebaseConfig = {
+<p style="margin-top:15px;">
+BSR Fish Stall
+</p>
 
-apiKey: "AIzaSyBy9ufRyJK9tYJB_pKTa8Sib6twt6wZAuQ",
+</div>
 
-authDomain: "bsr-fish-stall.firebaseapp.com",
+</div>
 
-databaseURL:
-"https://bsr-fish-stall-default-rtdb.firebaseio.com/",
+<!-- AI CHAT -->
 
-projectId: "bsr-fish-stall",
+<div id="chatButton" onclick="toggleChat()">
+💬
+</div>
 
-storageBucket:
-"bsr-fish-stall.firebasestorage.app",
+<div id="chatBox">
 
-messagingSenderId: "523597754559",
+<div class="chat-header">
+Fish AI Assistant
+</div>
 
-appId:
-"1:523597754559:web:38ca537318fd8a893f960a",
+<div id="chatMessages">
 
-measurementId: "G-NPTZC1NX3T"
+<div class="bot-message">
+Hi 👋 മീനുകളുടെ health benefits ചോദിക്കാം 🐟
+</div>
 
-};
+</div>
 
-const app =
-initializeApp(firebaseConfig);
+<div class="chat-input-area">
 
-const db =
-getDatabase(app);
+<input
+type="text"
+id="chatInput"
+placeholder="Ask something..."
+>
 
-/* SAVE ORDER */
+<button onclick="sendMessage()">
+Send
+</button>
 
-window.saveOrderToFirebase =
-function(orderData){
+</div>
 
-push(
-ref(db,"orders"),
-orderData
-);
+</div>
 
-};
+<!-- BOTTOM NAV -->
 
-</script>
+<div class="bottom-nav">
+
+<a href="#" onclick="showPage('homePage')">
+🏠<br>Home
+</a>
+
+<a href="#" onclick="showPage('categoryPage')">
+🐟<br>Category
+</a>
+
+<a href="#" onclick="showPage('cartPage')">
+🛒<br>Cart
+</a>
+
+<a href="#" onclick="showPage('accountPage')">
+👤<br>Account
+</a>
+
+</div>
 
 <script>
 
-/* CART */
-
 let cart = [];
 let deliveryCharge = 0;
-
-/* PAGE */
 
 function showPage(pageId){
 
@@ -98,8 +616,6 @@ document.getElementById("accountPage").style.display="none";
 document.getElementById(pageId).style.display="block";
 
 }
-
-/* SEARCH */
 
 function searchFish(){
 
@@ -132,14 +648,12 @@ items[i].style.display="none";
 
 }
 
-/* PRICE */
-
 function calculatePrice(rate,qtyId,unitId,totalId){
 
-var qty =
+let qty =
 document.getElementById(qtyId).value;
 
-var unit =
+let unit =
 document.getElementById(unitId).value;
 
 if(qty==""){
@@ -151,7 +665,7 @@ return;
 
 }
 
-var total = 0;
+let total = 0;
 
 if(unit=="KG"){
 
@@ -169,8 +683,6 @@ document.getElementById(totalId)
 
 }
 
-/* STOCK */
-
 function toggleStock(stockId){
 
 let password =
@@ -179,11 +691,12 @@ prompt("Enter Admin Password");
 if(password !== "bsr123"){
 
 alert("Wrong Password");
+
 return;
 
 }
 
-var stock =
+let stock =
 document.getElementById(stockId);
 
 if(stock.innerText=="In Stock"){
@@ -191,7 +704,6 @@ if(stock.innerText=="In Stock"){
 stock.innerText="Stock Out";
 
 stock.classList.remove("in-stock");
-
 stock.classList.add("out-stock");
 
 }else{
@@ -199,41 +711,41 @@ stock.classList.add("out-stock");
 stock.innerText="In Stock";
 
 stock.classList.remove("out-stock");
-
 stock.classList.add("in-stock");
 
 }
 
 }
 
-/* ADD TO CART */
-
 function addToCart(item,rate,qtyId,unitId,stockId){
 
-var stock =
-document.getElementById(stockId).innerText;
+let stock =
+document.getElementById(stockId)
+.innerText;
 
 if(stock=="Stock Out"){
 
 alert("Out Of Stock");
+
 return;
 
 }
 
-var qty =
+let qty =
 document.getElementById(qtyId).value;
 
-var unit =
+let unit =
 document.getElementById(unitId).value;
 
 if(qty==""){
 
 alert("Quantity enter ചെയ്യുക");
+
 return;
 
 }
 
-var total = 0;
+let total = 0;
 
 if(unit=="KG"){
 
@@ -256,13 +768,9 @@ total:total
 
 showCart();
 
-showPage('cartPage');
-
-alert("Cart ൽ Added ✅");
+showPage("cartPage");
 
 }
-
-/* DELIVERY */
 
 function updateDeliveryCharge(){
 
@@ -307,18 +815,16 @@ deliveryCharge = 0;
 }
 
 document.getElementById("deliveryCharge")
-.innerHTML = deliveryCharge;
+.innerHTML =
+deliveryCharge;
 
 showCart();
 
 }
 
-/* SHOW CART */
-
 function showCart(){
 
 let cartHTML = "";
-
 let grandTotal = 0;
 
 for(let i=0;i<cart.length;i++){
@@ -331,18 +837,17 @@ cartHTML += `
 
 <h3>${cart[i].item}</h3>
 
-<p>
-⚖️ ${cart[i].qty} ${cart[i].unit}
-</p>
+<p>⚖️ ${cart[i].qty} ${cart[i].unit}</p>
 
-<p>
-💰 ₹${cart[i].total.toFixed(2)}
-</p>
+<p>💰 ₹${cart[i].total.toFixed(2)}</p>
 
 <button
 onclick="deleteItem(${i})"
-style="background:red;">
+style="background:red;"
+>
+
 Delete
+
 </button>
 
 </div>
@@ -357,35 +862,17 @@ cartHTML = "No items added";
 
 }
 
-let finalTotal =
-grandTotal + deliveryCharge;
-
-cartHTML += `
-
-<div style="
-margin-top:20px;
-font-size:22px;
-font-weight:bold;
-color:#ff6b00;
-">
-
-🚚 Delivery Charge :
-₹${deliveryCharge}
-
-</div>
-
-`;
-
 document.getElementById("cartItems")
 .innerHTML = cartHTML;
+
+let finalTotal =
+grandTotal + deliveryCharge;
 
 document.getElementById("grandTotal")
 .innerHTML =
 finalTotal.toFixed(2);
 
 }
-
-/* DELETE */
 
 function deleteItem(index){
 
@@ -395,8 +882,6 @@ showCart();
 
 }
 
-/* DELIVERY STATUS */
-
 function updateDeliveryStatus(status){
 
 document.getElementById("deliveryStatus")
@@ -404,19 +889,17 @@ document.getElementById("deliveryStatus")
 
 }
 
-/* WHATSAPP ORDER */
-
 function sendWhatsAppOrder(){
 
-var customerName =
+let customerName =
 document.getElementById("customerName")
 .value;
 
-var customerNumber =
+let customerNumber =
 document.getElementById("customerNumber")
 .value;
 
-var location =
+let location =
 document.getElementById("customerLocation")
 .value;
 
@@ -448,25 +931,8 @@ return;
 
 }
 
-/* ORDER ID */
-
-let orderId =
-"BSR" + Math.floor(Math.random() * 100000);
-
 let message =
 "*BSR Fish Order*%0A%0A";
-
-message +=
-"🆔 Order ID : " +
-orderId + "%0A%0A";
-
-message +=
-"👤 Customer : " +
-customerName + "%0A";
-
-message +=
-"📞 Mobile : " +
-customerNumber + "%0A%0A";
 
 let grandTotal = 0;
 
@@ -481,67 +947,43 @@ grandTotal += cart[i].total;
 
 }
 
-/* DELIVERY */
-
-message +=
-"🚚 Delivery Charge : ₹" +
-deliveryCharge + "%0A%0A";
-
 let finalTotal =
 grandTotal + deliveryCharge;
 
 message +=
-"🧾 Grand Total : ₹" +
-finalTotal.toFixed(2) + "%0A%0A";
+"🚚 Delivery Charge : ₹" + deliveryCharge + "%0A%0A";
+
+message +=
+"🧾 Grand Total : ₹" + finalTotal.toFixed(2) + "%0A%0A";
+
+message +=
+"👤 Customer : " + customerName + "%0A";
+
+message +=
+"📞 Mobile : " + customerNumber + "%0A";
 
 message +=
 "📍 Location : " + location;
 
-/* SAVE FIREBASE */
-
-saveOrderToFirebase({
-
-orderId: orderId,
-
-customerName: customerName,
-
-mobile: customerNumber,
-
-location: location,
-
-items: cart,
-
-deliveryCharge: deliveryCharge,
-
-total: finalTotal,
-
-date: new Date().toLocaleString()
-
-});
-
-/* AUTO STATUS */
-
-updateDeliveryStatus(
-"🐟 Order Picked"
-);
+updateDeliveryStatus("🟡 Order Confirmed");
 
 setTimeout(()=>{
 
-updateDeliveryStatus(
-"🚚 Delivery On The Way"
-);
+updateDeliveryStatus("🐟 Fish Preparing");
 
-},5000);
+},3000);
 
 setTimeout(()=>{
 
-updateDeliveryStatus(
-"✅ Delivered"
-);
+updateDeliveryStatus("🚚 Delivery On The Way");
+
+},6000);
+
+setTimeout(()=>{
+
+updateDeliveryStatus("✅ Delivered");
 
 },10000);
-
-/* WHATSAPP */
 
 window.open(
 "https://api.whatsapp.com/send?phone=918891416068&text=" + message,
@@ -550,11 +992,9 @@ window.open(
 
 }
 
-/* AI CHAT */
-
 function toggleChat(){
 
-var chatBox =
+let chatBox =
 document.getElementById("chatBox");
 
 if(chatBox.style.display=="block"){
@@ -571,21 +1011,23 @@ chatBox.style.display="block";
 
 function sendMessage(){
 
-var input =
+let input =
 document.getElementById("chatInput");
 
-var message =
+let message =
 input.value.toLowerCase();
 
 if(message=="") return;
 
-var chatMessages =
+let chatMessages =
 document.getElementById("chatMessages");
 
 chatMessages.innerHTML += `
+
 <div class="user-message">
 ${input.value}
 </div>
+
 `;
 
 let reply =
@@ -601,28 +1043,16 @@ reply =
 else if(message.includes("മത്തി")){
 
 reply =
-"മത്തി കാൽസ്യം കൂടുതലുള്ള മത്സ്യമാണ് 🧠";
-
-}
-
-else if(message.includes("ചെമ്മീൻ")){
-
-reply =
-"ചെമ്മീൻ പ്രോട്ടീൻ കൂടുതലുള്ള മത്സ്യമാണ് 💪";
-
-}
-
-else if(message.includes("നെയ്മീൻ")){
-
-reply =
-"നെയ്മീൻ ആരോഗ്യത്തിന് നല്ലതാണ് 🛡️";
+"മത്തി calcium കൂടുതലുള്ള മത്സ്യമാണ് 🧠";
 
 }
 
 chatMessages.innerHTML += `
+
 <div class="bot-message">
 ${reply}
 </div>
+
 `;
 
 input.value="";
@@ -633,3 +1063,144 @@ chatMessages.scrollHeight;
 }
 
 </script>
+
+</body>
+</html><!-- FIREBASE DATABASE -->
+
+<script type="module">
+
+import { initializeApp }
+
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+
+getDatabase,
+ref,
+push,
+set,
+onValue
+
+}
+
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+/* FIREBASE CONFIG */
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyBy9ufRyJK9tYJB_pKTa8Sib6twt6wZAuQ",
+
+authDomain: "bsr-fish-stall.firebaseapp.com",
+
+databaseURL:
+"https://bsr-fish-stall-default-rtdb.firebaseio.com",
+
+projectId: "bsr-fish-stall",
+
+storageBucket:
+"bsr-fish-stall.firebasestorage.app",
+
+messagingSenderId: "523597754559",
+
+appId:
+"1:523597754559:web:38ca537318fd8a893f960a",
+
+measurementId: "G-NPTZC1NX3T"
+
+};
+
+/* INITIALIZE */
+
+const app =
+initializeApp(firebaseConfig);
+
+const db =
+getDatabase(app);
+
+/* SAVE ORDER */
+
+window.saveOrderToFirebase =
+function(orderData){
+
+const orderRef =
+push(ref(db,"orders"));
+
+set(orderRef,orderData);
+
+};
+
+/* LIVE STATUS */
+
+window.listenOrderStatus =
+function(orderId){
+
+const statusRef =
+ref(db,
+"orders/" + orderId + "/status");
+
+onValue(statusRef,(snapshot)=>{
+
+const status =
+snapshot.val();
+
+if(status){
+
+document.getElementById(
+"deliveryStatus"
+).innerHTML =
+status;
+
+}
+
+});
+
+};
+
+</script>
+let orderData = {
+
+customer: customerName,
+
+mobile: customerNumber,
+
+location: location,
+
+cart: cart,
+
+deliveryCharge: deliveryCharge,
+
+total: finalTotal,
+
+status: "🟡 Order Confirmed"
+
+};
+
+saveOrderToFirebase(orderData)
+else if(message.includes("ചൂര")){
+
+reply =
+"ചൂര protein കൂടുതലുള്ള മത്സ്യമാണ് 💪";
+
+}
+
+else if(message.includes("കരിമീൻ")){
+
+reply =
+"കരിമീൻ ഹൃദയാരോഗ്യത്തിന് നല്ലതാണ് ❤️";
+
+}
+
+else if(message.includes("കിളിമീൻ")){
+
+reply =
+"കിളിമീനിൽ vitamins ധാരാളമുണ്ട് 🧠";
+
+}
+
+else if(message.includes("fish")){
+
+reply =
+"മീൻ കഴിക്കുന്നത് ആരോഗ്യത്തിന് വളരെ നല്ലതാണ് 🐟";
+
+};
