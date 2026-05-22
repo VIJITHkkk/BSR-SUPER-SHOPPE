@@ -1079,24 +1079,34 @@ chatMessages.scrollHeight;
 </script>
 
 </body>
+<"orders/" + orderId + "/status");
+
+onValue(statusRef,(snapshot)=>{
+
+const status =
+snapshot.val();
+
+if(status){
+
+document.getElementById(
+"deliveryStatus"
+).innerHTML =
+status;
+
 <!-- FIREBASE DATABASE -->
 
 <script type="module">
 
 import { initializeApp }
-
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
-
 getDatabase,
 ref,
 push,
 set,
 onValue
-
 }
-
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 /* FIREBASE CONFIG */
@@ -1108,7 +1118,7 @@ apiKey: "AIzaSyBy9ufRyJK9tYJB_pKTa8Sib6twt6wZAuQ",
 authDomain: "bsr-fish-stall.firebaseapp.com",
 
 databaseURL:
-"https://bsr-fish-stall-default-rtdb.firebaseio.com",
+"https://bsr-fish-stall-default-rtdb.asia-southeast1.firebasedatabase.app",
 
 projectId: "bsr-fish-stall",
 
@@ -1118,9 +1128,7 @@ storageBucket:
 messagingSenderId: "523597754559",
 
 appId:
-"1:523597754559:web:38ca537318fd8a893f960a",
-
-measurementId: "G-NPTZC1NX3T"
+"1:523597754559:web:38ca537318fd8a893f960a"
 
 };
 
