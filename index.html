@@ -984,7 +984,21 @@ setTimeout(()=>{
 updateDeliveryStatus("✅ Delivered");
 
 },10000);
+const orderData = {
 
+customerName: customerName,
+
+customerNumber: customerNumber,
+
+location: location,
+
+status: "🟡 Pending",
+
+items: cart
+
+};
+
+saveOrderToFirebase(orderData);
 window.open(
 "https://api.whatsapp.com/send?phone=918891416068&text=" + message,
 "_blank"
