@@ -340,7 +340,215 @@ Fresh Fish Home Delivery 🐟
 <!-- CATEGORY -->
 
 <div id="categoryPage" style="display:none;">
+<!-- CHICKEN -->
 
+<div class="product fish-item">
+
+<img src="chicken.jpg">
+
+<h2>ചിക്കൻ</h2>
+
+<div class="price">
+Live ₹150 / KG
+</div>
+
+<div class="price">
+Meat ₹250 / KG
+</div>
+
+<div
+class="stock-status in-stock"
+id="stock10"
+onclick="toggleStock('stock10')">
+In Stock
+</div>
+
+<select
+id="chickenType"
+class="qty-input">
+
+<option value="Live Chicken">Live Chicken</option>
+<option value="Chicken Meat">Chicken Meat</option>
+
+</select>
+
+<input
+type="text"
+id="expectWeight"
+class="qty-input"
+placeholder="Expected Weight (Example : 1.5 KG)"
+>
+
+<select
+id="unit10"
+class="qty-input"
+onchange="calculateChickenPrice()">
+
+<option value="0.5">500 GM</option>
+<option value="1">1 KG</option>
+<option value="1.5">1.5 KG</option>
+<option value="2">2 KG</option>
+
+</select>
+
+<div id="total10" class="total">
+Total : ₹0
+</div>
+
+<button
+onclick="addChickenToCart()">
+Add To Cart
+</button>
+
+</div>
+
+<!-- BEEF -->
+
+<div class="product fish-item">
+
+<img src="beef.jpg">
+
+<h2>ബീഫ്</h2>
+
+<div class="price">
+₹440 / KG
+</div>
+
+<div
+class="stock-status in-stock"
+id="stock11"
+onclick="toggleStock('stock11')">
+In Stock
+</div>
+
+<select
+id="unit11"
+class="qty-input"
+onchange="calculatePrice(440,'unit11','total11')">
+
+<option value="0.5">500 GM</option>
+<option value="1">1 KG</option>
+<option value="1.5">1.5 KG</option>
+<option value="2">2 KG</option>
+
+</select>
+
+<div id="total11" class="total">
+Total : ₹0
+</div>
+
+<button
+onclick="addToCart('ബീഫ്',440,'unit11','stock11')">
+Add To Cart
+</button>
+
+</div>
+
+<!-- പോത്ത് -->
+
+<div class="product fish-item">
+
+<img src="poth.jpg">
+
+<h2>പോത്ത്</h2>
+
+<div class="price">
+₹600 / KG
+</div>
+
+<div
+class="stock-status in-stock"
+id="stock12"
+onclick="toggleStock('stock12')">
+In Stock
+</div>
+
+<select
+id="unit12"
+class="qty-input"
+onchange="calculatePrice(600,'unit12','total12')">
+
+<option value="0.5">500 GM</option>
+<option value="1">1 KG</option>
+<option value="1.5">1.5 KG</option>
+<option value="2">2 KG</option>
+
+</select>
+
+<div id="total12" class="total">
+Total : ₹0
+</div>
+
+<button
+onclick="addToCart('പോത്ത്',600,'unit12','stock12')">
+Add To Cart
+</button>
+
+</div>
+
+<script>
+
+function calculateChickenPrice(){
+
+let type =
+document.getElementById("chickenType").value;
+
+let qty =
+document.getElementById("unit10").value;
+
+let rate = 150;
+
+if(type=="Chicken Meat"){
+
+rate = 250;
+
+}
+
+let total = qty * rate;
+
+document.getElementById("total10")
+.innerHTML =
+"Total : ₹" + total.toFixed(2);
+
+}
+
+function addChickenToCart(){
+
+let type =
+document.getElementById("chickenType").value;
+
+let qty =
+document.getElementById("unit10").value;
+
+let expectedWeight =
+document.getElementById("expectWeight").value;
+
+let rate = 150;
+
+if(type=="Chicken Meat"){
+
+rate = 250;
+
+}
+
+let total = qty * rate;
+
+cart.push({
+
+item:type,
+qty:qty + " KG",
+weight:expectedWeight,
+total:total
+
+});
+
+showCart();
+
+showPage("cartPage");
+
+}
+
+</script>
 <div class="title">
 Fresh Fish Items
 </div>
@@ -450,7 +658,293 @@ Add To Cart
 </div>
 
 </div>
+<!-- KARIMEEN -->
 
+<div class="product fish-item">
+
+<img src="karimeen.jpg">
+
+<h2>കരിമീൻ</h2>
+
+<div class="price">
+₹600 / KG
+</div>
+
+<div
+class="stock-status in-stock"
+id="stock3"
+onclick="toggleStock('stock3')">
+In Stock
+</div>
+
+<select
+id="unit3"
+class="qty-input"
+onchange="calculatePrice(600,'unit3','total3')">
+
+<option value="0.25">250 GM</option>
+<option value="0.5">500 GM</option>
+<option value="1">1 KG</option>
+<option value="1.5">1.5 KG</option>
+
+</select>
+
+<div id="total3" class="total">
+Total : ₹0
+</div>
+
+<button
+onclick="addToCart('കരിമീൻ',600,'unit3','stock3')">
+Add To Cart
+</button>
+
+</div>
+
+<!-- SULOPIYA -->
+
+<div class="product fish-item">
+
+<img src="sulopiya.jpg">
+
+<h2>സുലോപിയ</h2>
+
+<div class="price">
+₹200 / KG
+</div>
+
+<div
+class="stock-status in-stock"
+id="stock4"
+onclick="toggleStock('stock4')">
+In Stock
+</div>
+
+<select
+id="unit4"
+class="qty-input"
+onchange="calculatePrice(200,'unit4','total4')">
+
+<option value="0.25">250 GM</option>
+<option value="0.5">500 GM</option>
+<option value="1">1 KG</option>
+
+</select>
+
+<div id="total4" class="total">
+Total : ₹0
+</div>
+
+<button
+onclick="addToCart('സുലോപിയ',200,'unit4','stock4')">
+Add To Cart
+</button>
+
+</div>
+
+<!-- NETHOLI -->
+
+<div class="product fish-item">
+
+<img src="netholi.jpg">
+
+<h2>നെത്തോലി</h2>
+
+<div class="price">
+₹120 / KG
+</div>
+
+<div
+class="stock-status in-stock"
+id="stock5"
+onclick="toggleStock('stock5')">
+In Stock
+</div>
+
+<select
+id="unit5"
+class="qty-input"
+onchange="calculatePrice(120,'unit5','total5')">
+
+<option value="0.25">250 GM</option>
+<option value="0.5">500 GM</option>
+<option value="1">1 KG</option>
+
+</select>
+
+<div id="total5" class="total">
+Total : ₹0
+</div>
+
+<button
+onclick="addToCart('നെത്തോലി',120,'unit5','stock5')">
+Add To Cart
+</button>
+
+</div>
+
+<!-- KONCHU -->
+
+<div class="product fish-item">
+
+<img src="konchu.jpg">
+
+<h2>കൊഞ്ച്</h2>
+
+<div class="price">
+₹669 / KG
+</div>
+
+<div
+class="stock-status in-stock"
+id="stock6"
+onclick="toggleStock('stock6')">
+In Stock
+</div>
+
+<select
+id="unit6"
+class="qty-input"
+onchange="calculatePrice(669,'unit6','total6')">
+
+<option value="0.25">250 GM</option>
+<option value="0.5">500 GM</option>
+<option value="1">1 KG</option>
+
+</select>
+
+<div id="total6" class="total">
+Total : ₹0
+</div>
+
+<button
+onclick="addToCart('കൊഞ്ച്',669,'unit6','stock6')">
+Add To Cart
+</button>
+
+</div>
+
+<!-- KAKKA -->
+
+<div class="product fish-item">
+
+<img src="kakka.jpg">
+
+<h2>കക്ക</h2>
+
+<div class="price">
+₹300 / KG
+</div>
+
+<div
+class="stock-status in-stock"
+id="stock7"
+onclick="toggleStock('stock7')">
+In Stock
+</div>
+
+<select
+id="unit7"
+class="qty-input"
+onchange="calculatePrice(300,'unit7','total7')">
+
+<option value="0.25">250 GM</option>
+<option value="0.5">500 GM</option>
+<option value="1">1 KG</option>
+
+</select>
+
+<div id="total7" class="total">
+Total : ₹0
+</div>
+
+<button
+onclick="addToCart('കക്ക',300,'unit7','stock7')">
+Add To Cart
+</button>
+
+</div>
+
+<!-- CHERIYA CHALA -->
+
+<div class="product fish-item">
+
+<img src="chala.jpg">
+
+<h2>ചെറിയ ചാള</h2>
+
+<div class="price">
+₹120 / KG
+</div>
+
+<div
+class="stock-status in-stock"
+id="stock8"
+onclick="toggleStock('stock8')">
+In Stock
+</div>
+
+<select
+id="unit8"
+class="qty-input"
+onchange="calculatePrice(120,'unit8','total8')">
+
+<option value="0.25">250 GM</option>
+<option value="0.5">500 GM</option>
+<option value="1">1 KG</option>
+
+</select>
+
+<div id="total8" class="total">
+Total : ₹0
+</div>
+
+<button
+onclick="addToCart('ചെറിയ ചാള',120,'unit8','stock8')">
+Add To Cart
+</button>
+
+</div>
+
+<!-- KILIVARANDA -->
+
+<div class="product fish-item">
+
+<img src="kilivaranda.jpg">
+
+<h2>കിളിവരണ്ട</h2>
+
+<div class="price">
+₹240 / KG
+</div>
+
+<div
+class="stock-status in-stock"
+id="stock9"
+onclick="toggleStock('stock9')">
+In Stock
+</div>
+
+<select
+id="unit9"
+class="qty-input"
+onchange="calculatePrice(240,'unit9','total9')">
+
+<option value="0.25">250 GM</option>
+<option value="0.5">500 GM</option>
+<option value="1">1 KG</option>
+
+</select>
+
+<div id="total9" class="total">
+Total : ₹0
+</div>
+
+<button
+onclick="addToCart('കിളിവരണ്ട',240,'unit9','stock9')">
+Add To Cart
+</button>
+
+</div>
 <!-- CART -->
 
 <div id="cartPage" style="display:none;">
