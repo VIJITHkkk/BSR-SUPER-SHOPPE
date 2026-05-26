@@ -1207,3 +1207,390 @@ window.open(
 </body>
 
 </html>
+<!-- ADMIN BUTTON -->
+
+<div id="adminBtn" onclick="openAdmin()">
+⚙️
+</div>
+
+<!-- ADMIN PANEL -->
+
+<div id="adminPanel">
+
+<div class="admin-header">
+Admin Panel
+</div>
+
+<input
+type="password"
+id="adminPassword"
+class="admin-input"
+placeholder="Enter Password">
+
+<button onclick="checkAdminLogin()">
+Login
+</button>
+
+<div id="adminContent" style="display:none;">
+
+<button onclick="adminLogout()">
+Logout
+</button>
+
+<div class="admin-card">
+
+<h2>Total Orders</h2>
+
+<h1 id="totalOrders">0</h1>
+
+</div>
+
+<div class="admin-card">
+
+<h2>Today Sales</h2>
+
+<h1>
+₹<span id="todaySales">0</span>
+</h1>
+
+</div>
+
+<input
+id="searchOrder"
+class="admin-input"
+placeholder="Search Customer"
+onkeyup="searchOrders()">
+
+<h2 style="margin-top:20px;">
+Stock Management
+</h2>
+
+<div id="adminStockList"></div>
+
+<h2 style="margin-top:20px;">
+Live Orders
+</h2>
+
+<div id="liveOrders"></div>
+
+</div>
+
+</div>
+
+<style>
+
+#adminBtn{
+position:fixed;
+top:120px;
+right:20px;
+width:60px;
+height:60px;
+background:#003049;
+color:white;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+cursor:pointer;
+z-index:999;
+}
+
+#adminPanel{
+position:fixed;
+top:0;
+right:-100%;
+width:350px;
+height:100%;
+background:white;
+z-index:2000;
+transition:0.4s;
+overflow-y:auto;
+box-shadow:-2px 0 10px rgba(0,0,0,0.2);
+padding:20px;
+}
+
+.admin-header{
+font-size:30px;
+font-weight:bold;
+text-align:center;
+margin-bottom:20px;
+}
+
+.admin-input{
+width:100%;
+padding:14px;
+border:1px solid #ccc;
+border-radius:10px;
+margin-top:10px;
+}
+
+.admin-card{
+padding:20px;
+background:#f5f5f5;
+border-radius:15px;
+margin-top:20px;
+}
+
+.order-box{
+background:#f5f5f5;
+padding:15px;
+border-radius:12px;
+margin-top:15px;
+}
+
+</style>
+
+<script>
+
+function openAdmin(){
+
+let panel =
+document.getElementById("adminPanel");
+
+if(panel.style.right=="0px"){
+
+panel.style.right="-100%";
+
+}else{
+
+panel.style.right="0";
+
+}
+
+}
+
+function checkAdminLogin(){
+
+let password =
+document.getElementById("adminPassword")
+.value;
+
+if(password!="bsr321"){
+
+alert("Wrong Password");
+return;
+
+}
+
+document.getElementById("adminContent")
+.style.display="block";
+
+loadAdminStocks();
+loadOrders();
+
+}
+
+function adminLogout(){
+
+document.getElementById("adminContent")
+.style.display="none";
+
+alert("Logged Out");
+
+}
+
+function loadAdminStocks(){
+
+let stockHTML = "";
+
+let items = [
+
+{ id:"stock1", name:"അയല" },
+{ id:"stock2", name:"മത്തി" },
+{ id:"stock3", name:"കരിമീൻ" },
+{ id:"stock4", name:"സുലോപിയ" },
+{ id:"stock5", name:"നെത്തോലി" },
+{ id:"stock6", name:"കൊഞ്ച്" },
+{ id:"stock7", name:"കക്ക" },
+{ id:"stock8", name:"ചെറിയ ചാള" },
+{ id:"stock9", name:"കിളിവരണ്ട" },
+{ id:"stock10", name:"ചിക്കൻ" },
+{ id:"stock11", name:"ബീഫ്" },
+{ id:"stock12", name:"പോത്ത്" }
+
+];
+
+for(let i=0;i<items.length;i++){
+
+let stockText =
+document.getElementById(items[i].id)
+.innerText;
+
+stockHTML += `
+
+<div class="order-box">
+
+<h3>${items[i].name}</h3>
+
+<p id="adminText${i}">
+${stockText}
+</p>
+
+<button
+onclick="adminToggleStock('${items[i].id}',${i})">
+
+Change Stock
+
+</button>
+
+</div>
+
+`;
+
+}
+
+document.getElementById("adminStockList")
+.innerHTML = stockHTML;
+
+}
+
+function adminToggleStock(stockId,index){
+
+let stock =
+document.getElementById(stockId);
+
+if(stock.innerText=="In Stock"){
+
+stock.innerText="Stock Out";
+
+stock.classList.remove("in-stock");
+stock.classList.add("out-stock");
+
+document.getElementById("adminText"+index)
+.innerText="Stock Out";
+
+}else{
+
+stock.innerText="In Stock";
+
+stock.classList.remove("out-stock");
+stock.classList.add("in-stock");
+
+document.getElementById("adminText"+index)
+.innerText="In Stock";
+
+}
+
+checkLowStock();
+
+}
+
+function searchOrders(){
+
+let input =
+document.getElementById("searchOrder")
+.value.toLowerCase();
+
+let orders =
+document.getElementsByClassName("order-box");
+
+for(let i=0;i<orders.length;i++){
+
+let text = orders[i].innerText.toLowerCase();
+
+if(text.includes(input)){
+
+orders[i].style.display="block";
+
+}else{
+
+orders[i].style.display="none";
+
+}
+
+}
+
+}
+
+function checkLowStock(){
+
+let items =
+document.getElementsByClassName("out-stock");
+
+if(items.length >= 5){
+
+alert("⚠️ Low Stock Warning");
+
+}
+
+}
+
+window.loadOrders = function(){
+
+const ordersRef = ref(db,"orders");
+
+onValue(ordersRef,(snapshot)=>{
+
+let data = snapshot.val();
+
+let ordersHTML = "";
+
+let total = 0;
+let sales = 0;
+
+for(let id in data){
+
+let order = data[id];
+
+sales += parseFloat(order.total || 0);
+
+total++;
+
+ordersHTML += `
+
+<div class="order-box">
+
+<h3>${order.customerName}</h3>
+
+<p>📞 ${order.customerNumber}</p>
+
+<p>📍 ${order.location}</p>
+
+<p>📦 ${order.status}</p>
+
+<button onclick="updateOrderStatus('${id}','✅ Accepted')">
+Accept
+</button>
+
+<button
+style="background:red;"
+onclick="updateOrderStatus('${id}','❌ Rejected')">
+Reject
+</button>
+
+<button
+style="background:green;"
+onclick="updateOrderStatus('${id}','🚚 Delivery')">
+Delivery
+</button>
+
+</div>
+
+`;
+
+}
+
+document.getElementById("liveOrders")
+.innerHTML = ordersHTML;
+
+document.getElementById("totalOrders")
+.innerHTML = total;
+
+document.getElementById("todaySales")
+.innerHTML = sales.toFixed(2);
+
+});
+
+}
+
+window.updateOrderStatus = function(orderId,status){
+
+update(ref(db,"orders/" + orderId),{
+status:status
+
+});
+
+}
+
+</script>
