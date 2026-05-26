@@ -1594,3 +1594,185 @@ status:status
 }
 
 </script>
+<!-- ================= FULL ADMIN STOCK + PRICE SYSTEM ================= -->
+
+<script>
+
+let items = [
+
+{ id:"stock1", name:"അയല", priceId:"price1" },
+{ id:"stock2", name:"മത്തി", priceId:"price2" },
+{ id:"stock3", name:"കരിമീൻ", priceId:"price3" },
+{ id:"stock4", name:"സുലോപിയ", priceId:"price4" },
+{ id:"stock5", name:"നെത്തോലി", priceId:"price5" },
+{ id:"stock6", name:"കൊഞ്ച്", priceId:"price6" },
+{ id:"stock7", name:"കക്ക", priceId:"price7" },
+{ id:"stock8", name:"ചെറിയ ചാള", priceId:"price8" },
+{ id:"stock9", name:"കിളിവരണ്ട", priceId:"price9" },
+{ id:"stock10", name:"ചിക്കൻ", priceId:"price10" },
+{ id:"stock11", name:"ബീഫ്", priceId:"price11" },
+{ id:"stock12", name:"പോത്ത്", priceId:"price12" }
+
+];
+
+function loadAdminStocks(){
+
+let stockHTML = "";
+
+for(let i=0;i<items.length;i++){
+
+let stockText =
+document.getElementById(items[i].id)
+.innerText;
+
+stockHTML += `
+
+<div style="
+padding:15px;
+margin-top:15px;
+background:#f5f5f5;
+border-radius:15px;
+">
+
+<h3>
+${items[i].name}
+</h3>
+
+<p id="adminText${i}">
+${stockText}
+</p>
+
+<button
+onclick="adminToggleStock('${items[i].id}',${i})">
+
+Change Stock
+
+</button>
+
+<input
+type="number"
+id="adminPrice${i}"
+class="admin-input"
+placeholder="Enter New Price">
+
+<button
+onclick="changePrice('${items[i].priceId}',${i})">
+
+Update Price
+
+</button>
+
+</div>
+
+`;
+
+}
+
+document.getElementById("adminStockList")
+.innerHTML = stockHTML;
+
+}
+
+function adminToggleStock(stockId,index){
+
+let stock =
+document.getElementById(stockId);
+
+if(stock.innerText=="In Stock"){
+
+stock.innerText="Stock Out";
+
+stock.classList.remove("in-stock");
+
+stock.classList.add("out-stock");
+
+document.getElementById("adminText"+index)
+.innerText="Stock Out";
+
+}else{
+
+stock.innerText="In Stock";
+
+stock.classList.remove("out-stock");
+
+stock.classList.add("in-stock");
+
+document.getElementById("adminText"+index)
+.innerText="In Stock";
+
+}
+
+}
+
+function changePrice(priceId,index){
+
+let newPrice =
+document.getElementById("adminPrice"+index)
+.value;
+
+if(newPrice==""){
+
+alert("Enter Price");
+return;
+
+}
+
+document.getElementById(priceId)
+.innerHTML =
+"₹" + newPrice + " / KG";
+
+alert("Price Updated Successfully");
+
+}
+
+</script>
+
+<!-- ================= PRICE DIV EXAMPLE ================= -->
+
+<div class="price" id="price1">
+₹220 / KG
+</div>
+
+<div class="price" id="price2">
+₹180 / KG
+</div>
+
+<div class="price" id="price3">
+₹600 / KG
+</div>
+
+<div class="price" id="price4">
+₹200 / KG
+</div>
+
+<div class="price" id="price5">
+₹120 / KG
+</div>
+
+<div class="price" id="price6">
+₹669 / KG
+</div>
+
+<div class="price" id="price7">
+₹300 / KG
+</div>
+
+<div class="price" id="price8">
+₹120 / KG
+</div>
+
+<div class="price" id="price9">
+₹240 / KG
+</div>
+
+<div class="price" id="price10">
+₹250 / KG
+</div>
+
+<div class="price" id="price11">
+₹440 / KG
+</div>
+
+<div class="price" id="price12">
+₹600 / KG
+</div>
