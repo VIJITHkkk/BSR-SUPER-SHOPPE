@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ml">
+
 <head>
 
 <meta charset="UTF-8">
@@ -21,8 +22,6 @@ background:#f5f5f5;
 padding-bottom:120px;
 }
 
-/* HEADER */
-
 header{
 background:white;
 padding:20px;
@@ -33,14 +32,14 @@ box-shadow:0 2px 10px rgba(0,0,0,0.1);
 text-align:center;
 }
 
-{<img src="BSR Super Shoppe Staff 20260522_193512.jpg" class="logo">
+.logo{
 width:90px;
 height:90px;
 border-radius:50%;
 object-fit:cover;
 }
 
-.shop-name{BSR SUPER SHOPPE}
+.shop-name{
 font-size:34px;
 font-weight:bold;
 margin-top:10px;
@@ -60,8 +59,6 @@ font-size:18px;
 outline:none;
 }
 
-/* HOME */
-
 .banner{
 margin:20px;
 border-radius:20px;
@@ -80,8 +77,6 @@ text-align:center;
 margin:20px 0;
 color:#003049;
 }
-
-/* PRODUCTS */
 
 .products{
 padding:20px;
@@ -167,8 +162,6 @@ border-radius:12px;
 cursor:pointer;
 }
 
-/* CART */
-
 .cart-section{
 background:white;
 margin:20px;
@@ -181,8 +174,6 @@ box-shadow:0 2px 10px rgba(0,0,0,0.1);
 padding:10px 0;
 border-bottom:1px solid #ddd;
 }
-
-/* NAVIGATION */
 
 .bottom-nav{
 position:fixed;
@@ -203,90 +194,6 @@ font-size:20px;
 font-weight:bold;
 text-align:center;
 }
-
-/* AI CHAT */
-
-#chatButton{
-position:fixed;
-bottom:110px;
-right:20px;
-width:65px;
-height:65px;
-background:#25D366;
-color:white;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:30px;
-cursor:pointer;
-}
-
-#chatBox{
-position:fixed;
-bottom:190px;
-right:20px;
-width:320px;
-background:white;
-border-radius:20px;
-overflow:hidden;
-display:none;
-box-shadow:0 2px 15px rgba(0,0,0,0.2);
-}
-
-.chat-header{
-background:#25D366;
-color:white;
-padding:15px;
-font-size:20px;
-font-weight:bold;
-text-align:center;
-}
-
-#chatMessages{
-height:300px;
-overflow-y:auto;
-padding:15px;
-background:#f5f5f5;
-}
-
-.bot-message,
-.user-message{
-padding:12px;
-border-radius:12px;
-margin-bottom:10px;
-font-size:16px;
-max-width:85%;
-}
-
-.bot-message{
-background:white;
-}
-
-.user-message{
-background:#dcf8c6;
-margin-left:auto;
-}
-
-.chat-input-area{
-display:flex;
-padding:10px;
-}
-
-.chat-input-area input{
-flex:1;
-padding:12px;
-border:1px solid #ccc;
-border-radius:10px;
-}
-
-.chat-input-area button{
-width:80px;
-margin-left:10px;
-margin-top:0;
-}
-
-/* MOBILE */
 
 @media(max-width:700px){
 
@@ -316,14 +223,13 @@ BSR Fish Stall
 type="text"
 id="searchInput"
 placeholder="മീൻ Search ചെയ്യൂ..."
-onkeyup="searchFish()"
->
+onkeyup="searchFish()">
 
 </div>
 
 </header>
 
-<!-- HOME -->
+<!-- HOME PAGE -->
 
 <div id="homePage">
 
@@ -337,8 +243,15 @@ Fresh Fish Home Delivery 🐟
 
 </div>
 
-<!-- CATEGORY -->
-<!-- REPLACE OLD CHICKEN + BEEF SECTION WITH THIS -->
+<!-- CATEGORY PAGE -->
+
+<div id="categoryPage" style="display:none;">
+
+<div class="title">
+Fish & Meat Items
+</div>
+
+<div class="products">
 
 <!-- CHICKEN -->
 
@@ -360,13 +273,15 @@ Meat ₹250 / KG
 class="stock-status in-stock"
 id="stock10"
 onclick="toggleStock('stock10')">
+
 In Stock
+
 </div>
 
 <select
 id="chickenType"
 class="qty-input"
-onchange="toggleChickenFields()">
+onchange="calculateChickenPrice()">
 
 <option value="Live Chicken">
 Live Chicken
@@ -378,54 +293,12 @@ Chicken Meat
 
 </select>
 
-<!-- LIVE CHICKEN -->
-
-<div id="liveChickenBox">
-
-<input
-type="text"
-id="expectWeight"
-class="qty-input"
-placeholder="Expected Weight (Example : 1.5 KG)"
->
-
-<select
-id="liveQty"
-class="qty-input"
-onchange="calculateChickenPrice()">
-
-<option value="1">1 Chicken</option>
-<option value="2">2 Chicken</option>
-<option value="3">3 Chicken</option>
-<option value="4">4 Chicken</option>
-
-</select>
-
-</div>
-
-<!-- CHICKEN MEAT -->
-
-<div id="meatChickenBox" style="display:none;">
-
-<select
-id="meatUnit"
-class="qty-input"
-onchange="calculateChickenPrice()">
-
-<option value="GM">GM</option>
-<option value="KG">KG</option>
-
-</select>
-
 <input
 type="number"
-id="meatQty"
+id="chickenQty"
 class="qty-input"
-placeholder="Quantity"
-onkeyup="calculateChickenPrice()"
->
-
-</div>
+placeholder="Quantity Enter ചെയ്യുക"
+onkeyup="calculateChickenPrice()">
 
 <div id="total10" class="total">
 Total : ₹0
@@ -434,9 +307,6 @@ Total : ₹0
 <button onclick="addChickenToCart()">
 Add To Cart
 </button>
-
-</div>
-
 <!-- BEEF -->
 
 <div class="product fish-item">
@@ -453,28 +323,27 @@ Add To Cart
 class="stock-status in-stock"
 id="stock11"
 onclick="toggleStock('stock11')">
+
 In Stock
+
 </div>
 
-<select
-id="unit11"
+<input
+type="number"
+id="qty11"
 class="qty-input"
-onchange="calculateSimplePrice(440,'unit11','total11')">
-
-<option value="0.5">500 GM</option>
-<option value="1">1 KG</option>
-<option value="1.5">1.5 KG</option>
-<option value="2">2 KG</option>
-
-</select>
+placeholder="Quantity"
+onkeyup="calculatePrice(440,'qty11','total11')">
 
 <div id="total11" class="total">
 Total : ₹0
 </div>
 
 <button
-onclick="addSimpleToCart('ബീഫ്',440,'unit11','stock11')">
+onclick="addToCart('ബീഫ്',440,'qty11','stock11')">
+
 Add To Cart
+
 </button>
 
 </div>
@@ -495,207 +364,31 @@ Add To Cart
 class="stock-status in-stock"
 id="stock12"
 onclick="toggleStock('stock12')">
+
 In Stock
+
 </div>
 
-<select
-id="unit12"
+<input
+type="number"
+id="qty12"
 class="qty-input"
-onchange="calculateSimplePrice(600,'unit12','total12')">
-
-<option value="0.5">500 GM</option>
-<option value="1">1 KG</option>
-<option value="1.5">1.5 KG</option>
-<option value="2">2 KG</option>
-
-</select>
+placeholder="Quantity"
+onkeyup="calculatePrice(600,'qty12','total12')">
 
 <div id="total12" class="total">
 Total : ₹0
 </div>
 
 <button
-onclick="addSimpleToCart('പോത്ത്',600,'unit12','stock12')">
+onclick="addToCart('പോത്ത്',600,'qty12','stock12')">
+
 Add To Cart
+
 </button>
 
 </div>
 
-
-</div>
-
-<script>
-
-function calculateChickenPrice(){
-
-let type =
-document.getElementById("chickenType").value;
-
-let qty =
-document.getElementById("unit10").value;
-
-let rate = 150;
-
-if(type=="Chicken Meat"){
-
-rate = 250;
-
-}
-
-let total = qty * rate;
-
-document.getElementById("total10")
-.innerHTML =
-"Total : ₹" + total.toFixed(2);
-
-}
-
-function addChickenToCart(){
-
-let type =
-document.getElementById("chickenType").value;
-
-let qty =
-document.getElementById("unit10").value;
-
-let expectedWeight =
-document.getElementById("expectWeight").value;
-
-let rate = 150;
-
-if(type=="Chicken Meat"){
-
-rate = 250;
-
-}
-
-let total = qty * rate;
-
-cart.push({
-
-item:type,
-qty:qty + " KG",
-weight:expectedWeight,
-total:total
-
-});
-
-showCart();
-
-showPage("cartPage");
-
-}
-
-</script>
-<div class="title">
-Fresh Fish Items
-</div>
-
-<div class="products">
-
-<!-- AYALA -->
-
-<div class="product fish-item">
-
-<img src="fish1.jpg">
-
-<h2>അയല</h2>
-
-<div class="price">
-₹220 / KG
-</div>
-
-<div
-class="stock-status in-stock"
-id="stock1"
-onclick="toggleStock('stock1')"
->
-In Stock
-</div>
-
-<select
-id="unit1"
-class="qty-input"
-onchange="calculatePrice(220,'qty1','unit1','total1')">
-
-<option value="GM">GM</option>
-<option value="KG">KG</option>
-
-</select>
-
-<input
-type="number"
-id="qty1"
-class="qty-input"
-placeholder="Quantity"
-onkeyup="calculatePrice(220,'qty1','unit1','total1')"
->
-
-<div id="total1" class="total">
-Total : ₹0
-</div>
-
-<button
-onclick="addToCart('അയല',220,'qty1','unit1','stock1')"
->
-Add To Cart
-</button>
-
-</div>
-
-<!-- MATHI -->
-
-<div class="product fish-item">
-
-<img src="fish2.jpg">
-
-<h2>മത്തി</h2>
-
-<div class="price">
-₹180 / KG
-</div>
-
-<div
-class="stock-status in-stock"
-id="stock2"
-onclick="toggleStock('stock2')"
->
-In Stock
-</div>
-
-<select
-id="unit2"
-class="qty-input"
-onchange="calculatePrice(180,'qty2','unit2','total2')">
-
-<option value="GM">GM</option>
-<option value="KG">KG</option>
-
-</select>
-
-<input
-type="number"
-id="qty2"
-class="qty-input"
-placeholder="Quantity"
-onkeyup="calculatePrice(180,'qty2','unit2','total2')"
->
-
-<div id="total2" class="total">
-Total : ₹0
-</div>
-
-<button
-onclick="addToCart('മത്തി',180,'qty2','unit2','stock2')"
->
-Add To Cart
-</button>
-
-</div>
-
-</div>
-
-</div>
 <!-- KARIMEEN -->
 
 <div class="product fish-item">
@@ -712,28 +405,27 @@ Add To Cart
 class="stock-status in-stock"
 id="stock3"
 onclick="toggleStock('stock3')">
+
 In Stock
+
 </div>
 
-<select
-id="unit3"
+<input
+type="number"
+id="qty3"
 class="qty-input"
-onchange="calculatePrice(600,'unit3','total3')">
-
-<option value="0.25">250 GM</option>
-<option value="0.5">500 GM</option>
-<option value="1">1 KG</option>
-<option value="1.5">1.5 KG</option>
-
-</select>
+placeholder="Quantity"
+onkeyup="calculatePrice(600,'qty3','total3')">
 
 <div id="total3" class="total">
 Total : ₹0
 </div>
 
 <button
-onclick="addToCart('കരിമീൻ',600,'unit3','stock3')">
+onclick="addToCart('കരിമീൻ',600,'qty3','stock3')">
+
 Add To Cart
+
 </button>
 
 </div>
@@ -754,27 +446,27 @@ Add To Cart
 class="stock-status in-stock"
 id="stock4"
 onclick="toggleStock('stock4')">
+
 In Stock
+
 </div>
 
-<select
-id="unit4"
+<input
+type="number"
+id="qty4"
 class="qty-input"
-onchange="calculatePrice(200,'unit4','total4')">
-
-<option value="0.25">250 GM</option>
-<option value="0.5">500 GM</option>
-<option value="1">1 KG</option>
-
-</select>
+placeholder="Quantity"
+onkeyup="calculatePrice(200,'qty4','total4')">
 
 <div id="total4" class="total">
 Total : ₹0
 </div>
 
 <button
-onclick="addToCart('സുലോപിയ',200,'unit4','stock4')">
+onclick="addToCart('സുലോപിയ',200,'qty4','stock4')">
+
 Add To Cart
+
 </button>
 
 </div>
@@ -795,27 +487,27 @@ Add To Cart
 class="stock-status in-stock"
 id="stock5"
 onclick="toggleStock('stock5')">
+
 In Stock
+
 </div>
 
-<select
-id="unit5"
+<input
+type="number"
+id="qty5"
 class="qty-input"
-onchange="calculatePrice(120,'unit5','total5')">
-
-<option value="0.25">250 GM</option>
-<option value="0.5">500 GM</option>
-<option value="1">1 KG</option>
-
-</select>
+placeholder="Quantity"
+onkeyup="calculatePrice(120,'qty5','total5')">
 
 <div id="total5" class="total">
 Total : ₹0
 </div>
 
 <button
-onclick="addToCart('നെത്തോലി',120,'unit5','stock5')">
+onclick="addToCart('നെത്തോലി',120,'qty5','stock5')">
+
 Add To Cart
+
 </button>
 
 </div>
@@ -836,27 +528,27 @@ Add To Cart
 class="stock-status in-stock"
 id="stock6"
 onclick="toggleStock('stock6')">
+
 In Stock
+
 </div>
 
-<select
-id="unit6"
+<input
+type="number"
+id="qty6"
 class="qty-input"
-onchange="calculatePrice(669,'unit6','total6')">
-
-<option value="0.25">250 GM</option>
-<option value="0.5">500 GM</option>
-<option value="1">1 KG</option>
-
-</select>
+placeholder="Quantity"
+onkeyup="calculatePrice(669,'qty6','total6')">
 
 <div id="total6" class="total">
 Total : ₹0
 </div>
 
 <button
-onclick="addToCart('കൊഞ്ച്',669,'unit6','stock6')">
+onclick="addToCart('കൊഞ്ച്',669,'qty6','stock6')">
+
 Add To Cart
+
 </button>
 
 </div>
@@ -877,32 +569,32 @@ Add To Cart
 class="stock-status in-stock"
 id="stock7"
 onclick="toggleStock('stock7')">
+
 In Stock
+
 </div>
 
-<select
-id="unit7"
+<input
+type="number"
+id="qty7"
 class="qty-input"
-onchange="calculatePrice(300,'unit7','total7')">
-
-<option value="0.25">250 GM</option>
-<option value="0.5">500 GM</option>
-<option value="1">1 KG</option>
-
-</select>
+placeholder="Quantity"
+onkeyup="calculatePrice(300,'qty7','total7')">
 
 <div id="total7" class="total">
 Total : ₹0
 </div>
 
 <button
-onclick="addToCart('കക്ക',300,'unit7','stock7')">
+onclick="addToCart('കക്ക',300,'qty7','stock7')">
+
 Add To Cart
+
 </button>
 
 </div>
 
-<!-- CHERIYA CHALA -->
+<!-- ചെറിയ ചാള -->
 
 <div class="product fish-item">
 
@@ -918,32 +610,32 @@ Add To Cart
 class="stock-status in-stock"
 id="stock8"
 onclick="toggleStock('stock8')">
+
 In Stock
+
 </div>
 
-<select
-id="unit8"
+<input
+type="number"
+id="qty8"
 class="qty-input"
-onchange="calculatePrice(120,'unit8','total8')">
-
-<option value="0.25">250 GM</option>
-<option value="0.5">500 GM</option>
-<option value="1">1 KG</option>
-
-</select>
+placeholder="Quantity"
+onkeyup="calculatePrice(120,'qty8','total8')">
 
 <div id="total8" class="total">
 Total : ₹0
 </div>
 
 <button
-onclick="addToCart('ചെറിയ ചാള',120,'unit8','stock8')">
+onclick="addToCart('ചെറിയ ചാള',120,'qty8','stock8')">
+
 Add To Cart
+
 </button>
 
 </div>
 
-<!-- KILIVARANDA -->
+<!-- കിളിവരണ്ട -->
 
 <div class="product fish-item">
 
@@ -959,31 +651,119 @@ Add To Cart
 class="stock-status in-stock"
 id="stock9"
 onclick="toggleStock('stock9')">
+
 In Stock
+
 </div>
 
-<select
-id="unit9"
+<input
+type="number"
+id="qty9"
 class="qty-input"
-onchange="calculatePrice(240,'unit9','total9')">
-
-<option value="0.25">250 GM</option>
-<option value="0.5">500 GM</option>
-<option value="1">1 KG</option>
-
-</select>
+placeholder="Quantity"
+onkeyup="calculatePrice(240,'qty9','total9')">
 
 <div id="total9" class="total">
 Total : ₹0
 </div>
 
 <button
-onclick="addToCart('കിളിവരണ്ട',240,'unit9','stock9')">
+onclick="addToCart('കിളിവരണ്ട',240,'qty9','stock9')">
+
 Add To Cart
+
 </button>
 
 </div>
-<!-- CART -->
+</div>
+
+<!-- AYALA -->
+
+<div class="product fish-item">
+
+<img src="fish1.jpg">
+
+<h2>അയല</h2>
+
+<div class="price">
+₹220 / KG
+</div>
+
+<div
+class="stock-status in-stock"
+id="stock1"
+onclick="toggleStock('stock1')">
+
+In Stock
+
+</div>
+
+<input
+type="number"
+id="qty1"
+class="qty-input"
+placeholder="Quantity"
+onkeyup="calculatePrice(220,'qty1','total1')">
+
+<div id="total1" class="total">
+Total : ₹0
+</div>
+
+<button
+onclick="addToCart('അയല',220,'qty1','stock1')">
+
+Add To Cart
+
+</button>
+
+</div>
+
+<!-- MATHI -->
+
+<div class="product fish-item">
+
+<img src="fish2.jpg">
+
+<h2>മത്തി</h2>
+
+<div class="price">
+₹180 / KG
+</div>
+
+<div
+class="stock-status in-stock"
+id="stock2"
+onclick="toggleStock('stock2')">
+
+In Stock
+
+</div>
+
+<input
+type="number"
+id="qty2"
+class="qty-input"
+placeholder="Quantity"
+onkeyup="calculatePrice(180,'qty2','total2')">
+
+<div id="total2" class="total">
+Total : ₹0
+</div>
+
+<button
+onclick="addToCart('മത്തി',180,'qty2','stock2')">
+
+Add To Cart
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- CART PAGE -->
 
 <div id="cartPage" style="display:none;">
 
@@ -999,57 +779,24 @@ No items added
 type="text"
 id="customerName"
 class="location-input"
-placeholder="Enter Your Name"
->
+placeholder="Enter Your Name">
 
 <input
 type="number"
 id="customerNumber"
 class="location-input"
-placeholder="Enter Mobile Number"
->
+placeholder="Enter Mobile Number">
 
 <input
 type="text"
 id="customerLocation"
 class="location-input"
-placeholder="Delivery Location"
-list="locationList"
-onkeyup="updateDeliveryCharge()"
->
-
-<datalist id="locationList">
-
-<option value="Kunnicode">
-<option value="Pathanapuram">
-<option value="Punalur">
-<option value="Anchal">
-<option value="Ayoor">
-
-</datalist>
-
-<h3 style="margin-top:15px;">
-🚚 Delivery Charge :
-₹<span id="deliveryCharge">0</span>
-</h3>
+placeholder="Delivery Location">
 
 <h2 style="margin-top:20px;">
 🧾 Grand Total :
 ₹<span id="grandTotal">0</span>
 </h2>
-
-<div
-id="deliveryStatus"
-style="
-margin-top:20px;
-font-size:22px;
-font-weight:bold;
-color:green;
-">
-
-Order Confirmed ✅
-
-</div>
 
 <button onclick="sendWhatsAppOrder()">
 Order Now
@@ -1059,7 +806,7 @@ Order Now
 
 </div>
 
-<!-- ACCOUNT -->
+<!-- ACCOUNT PAGE -->
 
 <div id="accountPage" style="display:none;">
 
@@ -1070,42 +817,6 @@ Order Now
 <p style="margin-top:15px;">
 BSR Fish Stall
 </p>
-
-</div>
-
-</div>
-
-<!-- AI CHAT -->
-
-<div id="chatButton" onclick="toggleChat()">
-💬
-</div>
-
-<div id="chatBox">
-
-<div class="chat-header">
-Fish AI Assistant
-</div>
-
-<div id="chatMessages">
-
-<div class="bot-message">
-Hi 👋 മീനുകളുടെ health benefits ചോദിക്കാം 🐟
-</div>
-
-</div>
-
-<div class="chat-input-area">
-
-<input
-type="text"
-id="chatInput"
-placeholder="Ask something..."
->
-
-<button onclick="sendMessage()">
-Send
-</button>
 
 </div>
 
@@ -1136,7 +847,6 @@ Send
 <script>
 
 let cart = [];
-let deliveryCharge = 0;
 
 function showPage(pageId){
 
@@ -1148,6 +858,8 @@ document.getElementById("accountPage").style.display="none";
 document.getElementById(pageId).style.display="block";
 
 }
+
+showPage("homePage");
 
 function searchFish(){
 
@@ -1180,13 +892,10 @@ items[i].style.display="none";
 
 }
 
-function calculatePrice(rate,qtyId,unitId,totalId){
+function calculatePrice(rate,qtyId,totalId){
 
 let qty =
 document.getElementById(qtyId).value;
-
-let unit =
-document.getElementById(unitId).value;
 
 if(qty==""){
 
@@ -1197,19 +906,42 @@ return;
 
 }
 
-let total = 0;
+let total = qty * rate;
 
-if(unit=="KG"){
-
-total = qty * rate;
-
-}else{
-
-total = (qty / 1000) * rate;
+document.getElementById(totalId)
+.innerHTML =
+"Total : ₹" + total.toFixed(2);
 
 }
 
-document.getElementById(totalId)
+function calculateChickenPrice(){
+
+let type =
+document.getElementById("chickenType").value;
+
+let qty =
+document.getElementById("chickenQty").value;
+
+if(qty==""){
+
+document.getElementById("total10")
+.innerHTML="Total : ₹0";
+
+return;
+
+}
+
+let rate = 150;
+
+if(type=="Chicken Meat"){
+
+rate = 250;
+
+}
+
+let total = qty * rate;
+
+document.getElementById("total10")
 .innerHTML =
 "Total : ₹" + total.toFixed(2);
 
@@ -1249,7 +981,7 @@ stock.classList.add("in-stock");
 
 }
 
-function addToCart(item,rate,qtyId,unitId,stockId){
+function addToCart(item,rate,qtyId,stockId){
 
 let stock =
 document.getElementById(stockId)
@@ -1266,9 +998,6 @@ return;
 let qty =
 document.getElementById(qtyId).value;
 
-let unit =
-document.getElementById(unitId).value;
-
 if(qty==""){
 
 alert("Quantity enter ചെയ്യുക");
@@ -1277,23 +1006,13 @@ return;
 
 }
 
-let total = 0;
-
-if(unit=="KG"){
-
-total = qty * rate;
-
-}else{
-
-total = (qty / 1000) * rate;
-
-}
+let total = qty * rate;
 
 cart.push({
 
 item:item,
 qty:qty,
-unit:unit,
+unit:"KG",
 total:total
 
 });
@@ -1304,53 +1023,44 @@ showPage("cartPage");
 
 }
 
-function updateDeliveryCharge(){
+function addChickenToCart(){
 
-let location =
-document.getElementById("customerLocation")
-.value.toLowerCase();
+let type =
+document.getElementById("chickenType").value;
 
-if(location.includes("kunnicode")){
+let qty =
+document.getElementById("chickenQty").value;
 
-deliveryCharge = 20;
+if(qty==""){
 
-}
+alert("Quantity enter ചെയ്യുക");
 
-else if(location.includes("pathanapuram")){
-
-deliveryCharge = 40;
+return;
 
 }
 
-else if(location.includes("punalur")){
+let rate = 150;
 
-deliveryCharge = 60;
+if(type=="Chicken Meat"){
 
-}
-
-else if(location.includes("anchal")){
-
-deliveryCharge = 50;
+rate = 250;
 
 }
 
-else if(location.includes("ayoor")){
+let total = qty * rate;
 
-deliveryCharge = 70;
+cart.push({
 
-}
+item:type,
+qty:qty,
+unit:"KG",
+total:total
 
-else{
-
-deliveryCharge = 0;
-
-}
-
-document.getElementById("deliveryCharge")
-.innerHTML =
-deliveryCharge;
+});
 
 showCart();
+
+showPage("cartPage");
 
 }
 
@@ -1369,14 +1079,17 @@ cartHTML += `
 
 <h3>${cart[i].item}</h3>
 
-<p>⚖️ ${cart[i].qty} ${cart[i].unit}</p>
+<p>
+⚖️ ${cart[i].qty} ${cart[i].unit}
+</p>
 
-<p>💰 ₹${cart[i].total.toFixed(2)}</p>
+<p>
+💰 ₹${cart[i].total.toFixed(2)}
+</p>
 
 <button
 onclick="deleteItem(${i})"
-style="background:red;"
->
+style="background:red;">
 
 Delete
 
@@ -1397,12 +1110,9 @@ cartHTML = "No items added";
 document.getElementById("cartItems")
 .innerHTML = cartHTML;
 
-let finalTotal =
-grandTotal + deliveryCharge;
-
 document.getElementById("grandTotal")
 .innerHTML =
-finalTotal.toFixed(2);
+grandTotal.toFixed(2);
 
 }
 
@@ -1411,13 +1121,6 @@ function deleteItem(index){
 cart.splice(index,1);
 
 showCart();
-
-}
-
-function updateDeliveryStatus(status){
-
-document.getElementById("deliveryStatus")
-.innerHTML = status;
 
 }
 
@@ -1472,21 +1175,16 @@ for(let i=0;i<cart.length;i++){
 
 message +=
 "🐟 Item : " + cart[i].item + "%0A" +
-"⚖️ Quantity : " + cart[i].qty + " " + cart[i].unit + "%0A" +
+"⚖️ Quantity : " + cart[i].qty + " KG%0A" +
 "💰 Price : ₹" + cart[i].total.toFixed(2) + "%0A%0A";
 
 grandTotal += cart[i].total;
 
 }
 
-let finalTotal =
-grandTotal + deliveryCharge;
-
 message +=
-"🚚 Delivery Charge : ₹" + deliveryCharge + "%0A%0A";
-
-message +=
-"🧾 Grand Total : ₹" + finalTotal.toFixed(2) + "%0A%0A";
+"🧾 Grand Total : ₹" +
+grandTotal.toFixed(2) + "%0A%0A";
 
 message +=
 "👤 Customer : " + customerName + "%0A";
@@ -1497,40 +1195,6 @@ message +=
 message +=
 "📍 Location : " + location;
 
-updateDeliveryStatus("🟡 Order Confirmed");
-
-setTimeout(()=>{
-
-updateDeliveryStatus("🐟 Fish Preparing");
-
-},3000);
-
-setTimeout(()=>{
-
-updateDeliveryStatus("🚚 Delivery On The Way");
-
-},6000);
-
-setTimeout(()=>{
-
-updateDeliveryStatus("✅ Delivered");
-
-},10000);
-const orderData = {
-
-customerName: customerName,
-
-customerNumber: customerNumber,
-
-location: location,
-
-status: "🟡 Pending",
-
-items: cart
-
-};
-
-saveOrderToFirebase(orderData);
 window.open(
 "https://api.whatsapp.com/send?phone=918891416068&text=" + message,
 "_blank"
@@ -1538,174 +1202,8 @@ window.open(
 
 }
 
-function toggleChat(){
-
-let chatBox =
-document.getElementById("chatBox");
-
-if(chatBox.style.display=="block"){
-
-chatBox.style.display="none";
-
-}else{
-
-chatBox.style.display="block";
-
-}
-
-}
-
-function sendMessage(){
-
-let input =
-document.getElementById("chatInput");
-
-let message =
-input.value.toLowerCase();
-
-if(message=="") return;
-
-let chatMessages =
-document.getElementById("chatMessages");
-
-chatMessages.innerHTML += `
-
-<div class="user-message">
-${input.value}
-</div>
-
-`;
-
-let reply =
-"മീൻ health benefits ചോദിക്കാം 🐟";
-
-if(message.includes("അയല")){
-
-reply =
-"അയലയിൽ Omega-3 കൂടുതലാണ് ❤️";
-
-}
-
-else if(message.includes("മത്തി")){
-
-reply =
-"മത്തി calcium കൂടുതലുള്ള മത്സ്യമാണ് 🧠";
-
-}
-
-chatMessages.innerHTML += `
-
-<div class="bot-message">
-${reply}
-</div>
-
-`;
-
-input.value="";
-
-chatMessages.scrollTop =
-chatMessages.scrollHeight;
-
-}
-
 </script>
 
 </body>
-</script>
 
-<script type="module">
-
-// firebase code
-
-</script>
-
-</body>
 </html>
-
-<!-- FIREBASE DATABASE -->
-
-<script type="module">
-
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-getDatabase,
-ref,
-push,
-set,
-onValue
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-/* FIREBASE CONFIG */
-
-const firebaseConfig = {
-
-apiKey: "AIzaSyBy9ufRyJK9tYJB_pKTa8Sib6twt6wZAuQ",
-
-authDomain: "bsr-fish-stall.firebaseapp.com",
-
-databaseURL:
-"https://bsr-fish-stall-default-rtdb.asia-southeast1.firebasedatabase.app",
-
-projectId: "bsr-fish-stall",
-
-storageBucket:
-"bsr-fish-stall.firebasestorage.app",
-
-messagingSenderId: "523597754559",
-
-appId:
-"1:523597754559:web:38ca537318fd8a893f960a"
-
-};
-
-/* INITIALIZE */
-
-const app =
-initializeApp(firebaseConfig);
-
-const db =
-getDatabase(app);
-
-/* SAVE ORDER */
-
-window.saveOrderToFirebase =
-function(orderData){
-
-const orderRef =
-push(ref(db,"orders"));
-
-set(orderRef,orderData);
-
-};
-
-/* LIVE STATUS */
-
-window.listenOrderStatus =
-function(orderId){
-
-const statusRef =
-ref(db,
-"orders/" + orderId + "/status");
-
-onValue(statusRef,(snapshot)=>{
-
-const status =
-snapshot.val();
-
-if(status){
-
-document.getElementById(
-"deliveryStatus"
-).innerHTML =
-status;
-
-}
-
-});
-
-};
-
-</script>
