@@ -338,8 +338,8 @@ Fresh Fish Home Delivery 🐟
 </div>
 
 <!-- CATEGORY -->
+<!-- REPLACE OLD CHICKEN + BEEF SECTION WITH THIS -->
 
-<div id="categoryPage" style="display:none;">
 <!-- CHICKEN -->
 
 <div class="product fish-item">
@@ -365,12 +365,22 @@ In Stock
 
 <select
 id="chickenType"
-class="qty-input">
+class="qty-input"
+onchange="toggleChickenFields()">
 
-<option value="Live Chicken">Live Chicken</option>
-<option value="Chicken Meat">Chicken Meat</option>
+<option value="Live Chicken">
+Live Chicken
+</option>
+
+<option value="Chicken Meat">
+Chicken Meat
+</option>
 
 </select>
+
+<!-- LIVE CHICKEN -->
+
+<div id="liveChickenBox">
 
 <input
 type="text"
@@ -380,23 +390,48 @@ placeholder="Expected Weight (Example : 1.5 KG)"
 >
 
 <select
-id="unit10"
+id="liveQty"
 class="qty-input"
 onchange="calculateChickenPrice()">
 
-<option value="0.5">500 GM</option>
-<option value="1">1 KG</option>
-<option value="1.5">1.5 KG</option>
-<option value="2">2 KG</option>
+<option value="1">1 Chicken</option>
+<option value="2">2 Chicken</option>
+<option value="3">3 Chicken</option>
+<option value="4">4 Chicken</option>
 
 </select>
+
+</div>
+
+<!-- CHICKEN MEAT -->
+
+<div id="meatChickenBox" style="display:none;">
+
+<select
+id="meatUnit"
+class="qty-input"
+onchange="calculateChickenPrice()">
+
+<option value="GM">GM</option>
+<option value="KG">KG</option>
+
+</select>
+
+<input
+type="number"
+id="meatQty"
+class="qty-input"
+placeholder="Quantity"
+onkeyup="calculateChickenPrice()"
+>
+
+</div>
 
 <div id="total10" class="total">
 Total : ₹0
 </div>
 
-<button
-onclick="addChickenToCart()">
+<button onclick="addChickenToCart()">
 Add To Cart
 </button>
 
@@ -424,7 +459,7 @@ In Stock
 <select
 id="unit11"
 class="qty-input"
-onchange="calculatePrice(440,'unit11','total11')">
+onchange="calculateSimplePrice(440,'unit11','total11')">
 
 <option value="0.5">500 GM</option>
 <option value="1">1 KG</option>
@@ -438,7 +473,7 @@ Total : ₹0
 </div>
 
 <button
-onclick="addToCart('ബീഫ്',440,'unit11','stock11')">
+onclick="addSimpleToCart('ബീഫ്',440,'unit11','stock11')">
 Add To Cart
 </button>
 
@@ -466,7 +501,7 @@ In Stock
 <select
 id="unit12"
 class="qty-input"
-onchange="calculatePrice(600,'unit12','total12')">
+onchange="calculateSimplePrice(600,'unit12','total12')">
 
 <option value="0.5">500 GM</option>
 <option value="1">1 KG</option>
@@ -480,9 +515,12 @@ Total : ₹0
 </div>
 
 <button
-onclick="addToCart('പോത്ത്',600,'unit12','stock12')">
+onclick="addSimpleToCart('പോത്ത്',600,'unit12','stock12')">
 Add To Cart
 </button>
+
+</div>
+
 
 </div>
 
