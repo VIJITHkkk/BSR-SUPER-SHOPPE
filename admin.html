@@ -1,5 +1,3 @@
-<!-- ================= ADMIN LOGIN PAGE ================= -->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -64,7 +62,7 @@ margin-top:10px;
 }
 
 .input-box{
-margin-top:30px;
+margin-top:25px;
 text-align:left;
 }
 
@@ -74,7 +72,7 @@ font-weight:bold;
 color:#777;
 }
 
-.input-box input{
+.admin-input{
 width:100%;
 padding:18px;
 border-radius:18px;
@@ -101,13 +99,6 @@ cursor:pointer;
 opacity:0.9;
 }
 
-#error{
-margin-top:20px;
-color:red;
-font-size:18px;
-display:none;
-}
-
 </style>
 
 </head>
@@ -129,13 +120,46 @@ Admin & Staff Panel 🐟
 <div class="input-box">
 
 <label>
-USERNAME
+USER
+</label>
+
+<select id="userType" class="admin-input">
+
+<option value="">
+Select User
+</option>
+
+<option value="ADMIN">
+ADMIN
+</option>
+
+<option value="HASHIM">
+HASHIM
+</option>
+
+<option value="ATHUL">
+ATHUL
+</option>
+
+<option value="VIJITH">
+VIJITH
+</option>
+
+</select>
+
+</div>
+
+<div class="input-box">
+
+<label>
+NAME
 </label>
 
 <input
 type="text"
 id="username"
-placeholder="Enter username">
+class="admin-input"
+placeholder="Enter Name">
 
 </div>
 
@@ -148,19 +172,10 @@ PASSWORD
 <input
 type="password"
 id="password"
-placeholder="Enter password">
+class="admin-input"
+placeholder="Enter Password">
 
 </div>
-
-<input
-type="text"
-id="username"
-placeholder="Enter Username">
-
-<input
-type="password"
-id="password"
-placeholder="Enter Password">
 
 <button
 class="login-btn"
@@ -170,34 +185,14 @@ Sign In
 
 </button>
 
-Sign In
-
-</button>
-
-<div id="error">
-Wrong Username Or Password
 </div>
-
-</div>
-
-</body>
-<input
-type="text"
-id="username"
-placeholder="Enter Username">
-
-<input
-type="password"
-id="password"
-placeholder="Enter Password">
-
-<button onclick="loginAdmin()">
-Sign In
-</button>
 
 <script>
 
 function loginAdmin(){
+
+let user =
+document.getElementById("userType").value;
 
 let username =
 document.getElementById("username").value;
@@ -205,9 +200,11 @@ document.getElementById("username").value;
 let password =
 document.getElementById("password").value;
 
-/* LOGIN USERS */
-
-if(username=="ADMIN" && password=="admin123"){
+if(
+user=="ADMIN" &&
+username=="ADMIN" &&
+password=="admin123"
+){
 
 alert("ADMIN LOGIN SUCCESS");
 
@@ -215,7 +212,11 @@ window.location.href="index.html";
 
 }
 
-else if(username=="HASHIM" && password=="hashim123"){
+else if(
+user=="HASHIM" &&
+username=="HASHIM" &&
+password=="hashim123"
+){
 
 alert("HASHIM LOGIN SUCCESS");
 
@@ -223,7 +224,11 @@ window.location.href="index.html";
 
 }
 
-else if(username=="ATHUL" && password=="athul123"){
+else if(
+user=="ATHUL" &&
+username=="ATHUL" &&
+password=="athul123"
+){
 
 alert("ATHUL LOGIN SUCCESS");
 
@@ -231,7 +236,11 @@ window.location.href="index.html";
 
 }
 
-else if(username=="VIJITH" && password=="vijith123"){
+else if(
+user=="VIJITH" &&
+username=="VIJITH" &&
+password=="vijith123"
+){
 
 alert("VIJITH LOGIN SUCCESS");
 
@@ -248,3 +257,6 @@ alert("Wrong Username Or Password");
 }
 
 </script>
+
+</body>
+</html>
