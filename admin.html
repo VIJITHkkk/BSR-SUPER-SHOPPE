@@ -191,21 +191,41 @@ document.getElementById("username").value;
 let password =
 document.getElementById("password").value;
 
-if(
+/* LOGIN USERS */
 
-(username=="admin" && password=="1234")
+if(username=="ADMIN" && password=="admin123"){
 
-||
-
-(username=="staff" && password=="staff123")
-
-){
-
-alert("Login Success");
+alert("ADMIN LOGIN SUCCESS");
 
 window.location.href="index.html";
 
-}else{
+}
+
+else if(username=="HASHIM" && password=="hashim123"){
+
+alert("HASHIM LOGIN SUCCESS");
+
+window.location.href="index.html";
+
+}
+
+else if(username=="ATHUL" && password=="athul123"){
+
+alert("ATHUL LOGIN SUCCESS");
+
+window.location.href="index.html";
+
+}
+
+else if(username=="VIJITH" && password=="vijith123"){
+
+alert("VIJITH LOGIN SUCCESS");
+
+window.location.href="index.html";
+
+}
+
+else{
 
 alert("Wrong Username Or Password");
 
@@ -214,5 +234,3 @@ alert("Wrong Username Or Password");
 }
 
 </script>
-
-</body>
