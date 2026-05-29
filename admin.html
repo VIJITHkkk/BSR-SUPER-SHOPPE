@@ -1,258 +1,200 @@
+<!-- ================= ADMIN LOGIN PAGE ================= -->
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>BSR Admin Panel</title>
+<title>
+BSR Admin Login
+</title>
 
 <style>
 
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
 body{
-font-family:Arial;
-background:#f5f5f5;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(180deg,#15b44a,#0d7d32);
 padding:20px;
+}
+
+.login-box{
+width:100%;
+max-width:420px;
+background:white;
+padding:40px 30px;
+border-radius:35px;
+text-align:center;
+box-shadow:0 5px 25px rgba(0,0,0,0.2);
+}
+
+.logo{
+width:140px;
+height:140px;
+border-radius:50%;
+object-fit:cover;
+border:6px solid #15b44a;
 }
 
 .title{
-font-size:35px;
+font-size:45px;
 font-weight:bold;
-text-align:center;
-margin-bottom:30px;
-color:#003049;
+margin-top:20px;
+color:#11152c;
 }
 
-.order-box{
-background:white;
-padding:20px;
-border-radius:20px;
-margin-bottom:20px;
-box-shadow:0 2px 10px rgba(0,0,0,0.1);
-}
-
-.order-box h2{
-color:#ff6b00;
-margin-bottom:10px;
-}
-
-.item{
+.subtitle{
+font-size:20px;
+color:#777;
 margin-top:10px;
-padding:10px;
-background:#f9f9f9;
-border-radius:10px;
 }
 
-button{
-margin-top:15px;
-padding:12px 20px;
-border:none;
-border-radius:10px;
-font-size:16px;
+.input-box{
+margin-top:30px;
+text-align:left;
+}
+
+.input-box label{
+font-size:18px;
 font-weight:bold;
+color:#777;
+}
+
+.input-box input{
+width:100%;
+padding:18px;
+border-radius:18px;
+border:2px solid #e5e5e5;
+margin-top:10px;
+font-size:20px;
+outline:none;
+}
+
+.login-btn{
+width:100%;
+padding:18px;
+border:none;
+background:#4f46e5;
+color:white;
+font-size:28px;
+font-weight:bold;
+border-radius:20px;
+margin-top:30px;
 cursor:pointer;
 }
 
-.complete-btn{
-background:green;
-color:white;
+.login-btn:hover{
+opacity:0.9;
 }
 
-.delete-btn{
-background:red;
-color:white;
-margin-left:10px;
+#error{
+margin-top:20px;
+color:red;
+font-size:18px;
+display:none;
 }
 
 </style>
+
 </head>
 
 <body>
 
+<div class="login-box">
+
+<img src="logo.png" class="logo">
+
 <div class="title">
-🐟 BSR Admin Orders
+BSR Fish Stall
 </div>
 
-<div id="ordersContainer">
-
-Loading Orders...
-
+<div class="subtitle">
+Admin & Staff Panel 🐟
 </div>
 
-<script type="module">
+<div class="input-box">
 
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+<label>
+USERNAME
+</label>
 
-import {
-getDatabase,
-ref,
-onValue,
-remove,
-update
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-/* FIREBASE */
-
-const firebaseConfig = {
-
-apiKey: "AIzaSyBy9ufRyJK9tYJB_pKTa8Sib6twt6wZAuQ",
-
-authDomain: "bsr-fish-stall.firebaseapp.com",
-
-databaseURL:
-"https://bsr-fish-stall-default-rtdb.firebaseio.com/",
-
-projectId: "bsr-fish-stall",
-
-storageBucket:
-"bsr-fish-stall.firebasestorage.app",
-
-messagingSenderId: "523597754559",
-
-appId:
-"1:523597754559:web:38ca537318fd8a893f960a",
-
-measurementId: "G-NPTZC1NX3T"
-
-};
-
-const app =
-initializeApp(firebaseConfig);
-
-const db =
-getDatabase(app);
-
-const ordersRef =
-ref(db,"orders");
-
-/* LOAD ORDERS */
-
-onValue(ordersRef,(snapshot)=>{
-
-const data = snapshot.val();
-
-let html = "";
-
-if(!data){
-
-html = "No Orders";
-
-document.getElementById("ordersContainer")
-.innerHTML = html;
-
-return;
-
-}
-
-Object.keys(data).reverse().forEach((key)=>{
-
-let order = data[key];
-
-html += `
-
-<div class="order-box">
-
-<h2>
-${order.customerName}
-</h2>
-
-<p>
-📞 ${order.mobile}
-</p>
-
-<p>
-📍 ${order.location}
-</p>
-
-<p>
-🚚 Delivery : ₹${order.deliveryCharge}
-</p>
-
-<p>
-🧾 Total : ₹${order.total}
-</p>
-
-<p>
-🕒 ${order.date}
-</p>
-
-<hr>
-
-`;
-
-order.items.forEach((item)=>{
-
-html += `
-
-<div class="item">
-
-🐟 ${item.item}<br>
-
-⚖️ ${item.qty} ${item.unit}<br>
-
-💰 ₹${item.total}
+<input
+type="text"
+id="username"
+placeholder="Enter username">
 
 </div>
 
-`;
+<div class="input-box">
 
-});
+<label>
+PASSWORD
+</label>
 
-html += `
+<input
+type="password"
+id="password"
+placeholder="Enter password">
+
+</div>
 
 <button
-class="complete-btn"
-onclick="completeOrder('${key}')">
+class="login-btn"
+onclick="loginAdmin()">
 
-Complete
+Sign In
 
 </button>
 
-<button
-class="delete-btn"
-onclick="deleteOrder('${key}')">
-
-Delete
-
-</button>
+<div id="error">
+Wrong Username Or Password
+</div>
 
 </div>
 
-`;
+<script>
 
-});
+function loginAdmin(){
 
-document.getElementById("ordersContainer")
-.innerHTML = html;
+let username =
+document.getElementById("username")
+.value;
 
-});
+let password =
+document.getElementById("password")
+.value;
 
-/* DELETE */
+if(
+username=="admin"
+&&
+password=="bsr321"
+){
 
-window.deleteOrder =
-function(id){
+window.location.href =
+"adminpanel.html";
 
-remove(ref(db,'orders/'+id));
+}else{
 
-};
+document.getElementById("error")
+.style.display="block";
 
-/* COMPLETE */
-
-window.completeOrder =
-function(id){
-
-update(
-ref(db,'orders/'+id),
-{
-status:"Completed"
 }
-);
 
-alert("Order Completed ✅");
-
-};
+}
 
 </script>
 
